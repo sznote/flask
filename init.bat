@@ -1,0 +1,1 @@
+d:\pywin\pwin27\Scripts\activate
