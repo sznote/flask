@@ -9,6 +9,10 @@ def hello():
 def list():
     return "List products"
     
+@app.route('/detail/<name>')
+def detail(name):
+    return "Hello" + name + "!!"
+    
 if __name__ == "__main__":
     app.run()
     
