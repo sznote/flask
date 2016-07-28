@@ -1,0 +1,57 @@
+multi file , multi direcory 
+
+/yourapplication
+    /runserver.py
+    /yourapplication
+        /__init__.py
+        /views.py
+        /static
+            /style.css
+        /templates
+            layout.html
+            index.html
+            login.html
+            
+
+
+|am here            
+ /frist
+   - me.py
+   class hello():
+    def __init__(self):
+        print "hello lab1"
+
+   - yu.py
+   
+  
+  
+  from first.me import hello#{class}
+     x=hello
+     x()
+  or
+  from  first import  me
+    dir(me)
+    x=me.hello
+    x()
+    
+การ ใช้ relative 
+
+|*here
+lab1/
+  -sa1.py
+  class test1():
+    def __init__(self):
+        print "hello lab1"
+
+  -test.py
+  from .sa1 import test1
+  def mylab():
+    test1()
+จะเห็นว่า  test.py ใช้ relative name (.) หรือ lab1.sa1 เพราะการ รันไม่ได้ run ที่ path นี้
+
+/
+ไม่ได้ เข้าไป run ที่  lab1 
+from lab1 import test
+>>> test.mylab
+
+ 
