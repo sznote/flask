@@ -1,2 +1,6 @@
 ref. 
 http://www.flaskapi.org/
+http://exploreflask.com/en/latest/blueprints.html
+http://stackoverflow.com/questions/15583671/flask-how-to-architect-the-project-with-multiple-apps
+http://flask.pocoo.org/docs/0.11/blueprints/#blueprints
+http://flask.pocoo.org/docs/0.11/patterns/packages/
