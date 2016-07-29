@@ -4,8 +4,17 @@ from  flask import request
 
 @tutor1.route('/')
 def index():
-    return "Method userd: %s" % request.method
- 
+    if request.method.lower() == 'get':
+        name = "sahai"
+    return "Method userd: %s" % name
+
+@tutor1.route("/bacon",methods=['GET', 'POST'])
+def bacon():
+    if request.method == 'POST':
+        return "You are using POST"
+    else:
+        return "You are probably GET"
+    
 @tutor1.route('/tuna')
 def tuna():
     return '<h2>Tuna is good</h2>'
