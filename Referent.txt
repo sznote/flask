@@ -4,3 +4,9 @@ http://exploreflask.com/en/latest/blueprints.html
 http://stackoverflow.com/questions/15583671/flask-how-to-architect-the-project-with-multiple-apps
 http://flask.pocoo.org/docs/0.11/blueprints/#blueprints
 http://flask.pocoo.org/docs/0.11/patterns/packages/
+
+vidio
+https://www.youtube.com/watch?v=59cIRELecI0&index=1&list=PLihUZHHwjm2HFZgxFEugnXJlAHUJ4UhmC
+https://www.youtube.com/watch?v=mr90d7fp3SE&list=PLQVvvaa0QuDcOS4l8RCWh0olq_je0OKaP
+https://www.youtube.com/watch?v=gDSLrpxR3G4&list=PLei96ZX_m9sWQco3fwtSMqyGL-JDQo28l  (10)
+https://www.youtube.com/watch?v=Lv1fv-HmkQo&list=PLQVvvaa0QuDc_owjTbIY4rbgXOFkUYOUB (35)
