@@ -1,4 +1,5 @@
 git add  index.php
 git commit -m  "first commit!!"
 git remote add origin https://github.com/sznote/flask.git
+git remote set-url origin  https://sznote@github.com/sznote/flask.git
 git push -u origin master
