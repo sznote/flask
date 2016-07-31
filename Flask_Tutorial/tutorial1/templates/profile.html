@@ -1,0 +1,17 @@
+<!doctype html>
+<head>
+<title> Welcome  to the flask</title> 
+<link rel="stylesheet" type="text/css" href="{{  url_for('tutorial1.static', filename='style.css') }}" >
+</head>
+
+
+<body>
+Tutorial1/templates
+{% if name %}
+ <h1> Hi {{ name }} </h1>
+{% else %}
+ <h1> Hi Anonymoush </h1>
+{% endif %}
+ 
+</body>
+</html>

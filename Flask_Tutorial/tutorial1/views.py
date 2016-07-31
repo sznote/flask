@@ -3,11 +3,13 @@ from  flask import request, render_template
 #from  . import tutorial1
 
 @tutor1.route('/')
-def index():
+@tutor1.route('/<user>')
+def index(user=None):
     if request.method.lower() == 'get':
         name = "sahai"
-    return "Method userd: %s" % name
-
+    #return "Method userd: %s" % name
+    return render_template("user.html",user=user)
+    
 @tutor1.route("/bacon",methods=['GET', 'POST'])
 def bacon():
     if request.method == 'POST':
@@ -15,9 +17,9 @@ def bacon():
     else:
         return "You are probably GET"
     
-@tutor1.route('/profiles/<username>')
+@tutor1.route('/profile/<username>')
 def profiles(username):
-    return render_template("profiles.html",name=username)
+    return render_template("profile.html",name=username)
 
 @tutor1.route('/post/<int:post_id>')
 def show_post(post_id):

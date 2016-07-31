@@ -1,1 +1,23 @@
 https://www.youtube.com/watch?v=ZVGwqnjOKjk
+
+5.  static file
+url_for
+
+<link rel="stylesheet" type="text/css" href="{{  url_for('static', filename='style.css') }}" >
+<link rel="stylesheet" type="text/css" href="{{  url_for('tutorial1.static', filename='style.css') }}" >
+
+6.  mapping multiple url.
+@tutor1.route('/')
+@tutor1.route('/<user>')
+def index(user=None):
+      
+     return  render_tempage("user.html", user=user)
+     
+ >user.html
+ {% if  user %}
+ <h1> Hi {{ user}} </h1>
+{% else %}
+     <h1> Please Login.</h1>
+ {% endif %}
+
+ 7.  Passing  Object  into Templates
