@@ -9,18 +9,24 @@ def index(user=None):
         name = "sahai"
     #return "Method userd: %s" % name
     return render_template("user.html",user=user)
+
+ @tutor1.route("/shopping")
+ def shopping():
+    return  render_template("shopping.html")
     
+ #    
 @tutor1.route("/bacon",methods=['GET', 'POST'])
 def bacon():
     if request.method == 'POST':
         return "You are using POST"
     else:
         return "You are probably GET"
-    
+ #   
 @tutor1.route('/profile/<username>')
 def profiles(username):
     return render_template("profile.html",name=username)
 
+ #   
 @tutor1.route('/post/<int:post_id>')
 def show_post(post_id):
     return "<h2>Post ID is %s <h2>" % post_id    
