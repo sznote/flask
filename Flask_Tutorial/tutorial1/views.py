@@ -10,9 +10,10 @@ def index(user=None):
     #return "Method userd: %s" % name
     return render_template("user.html",user=user)
 
- @tutor1.route("/shopping")
- def shopping():
-    return  render_template("shopping.html")
+@tutor1.route("/shopping")
+def shopping():
+    food = [ "Cheese", "Tuna", "Beef" ] 
+    return  render_template("shopping.html",food=food)
     
  #    
 @tutor1.route("/bacon",methods=['GET', 'POST'])
