@@ -4,4 +4,5 @@ tutor1 =  Blueprint('tutorial1', __name__, template_folder='templates', static_f
 print tutor1.root_path
 #D:\mycode\flask\Flask_Tutorial\tutorial1
 
-from  tutorial1  import  views
+#from  tutorial1  import  views
+from . import  views

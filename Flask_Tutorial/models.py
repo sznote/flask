@@ -1,5 +1,7 @@
-from runserver2 import  app
-from flask_sqlalchemy import  SQLAlchemy
+from app import db
+from app.users import constants  as USER
 
-db = SQLAlchemy(app)
+#from flask_sqlalchemy import  SQLAlchemy
+
+
 

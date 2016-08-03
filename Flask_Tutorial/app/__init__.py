@@ -9,7 +9,9 @@ app.register_blueprint(tutor1, url_prefix='/tutor1')
 app.register_blueprint(tutorial2, url_prefix='/tutor2')
 app.register_blueprint(tutorial3, url_prefix='/tutor3')
 
-app.config.from_pyfile('config_file.cfg')
+app.config.from_pyfile('config.py')
+db = SQLAlchemy(app)
+
+#db = SQLAlchemy(app)
 #app.run(debug=True)
-#db  = SQLAlchemy(app)
 #app.run()

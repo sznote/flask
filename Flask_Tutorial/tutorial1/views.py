@@ -1,6 +1,8 @@
-from  tutorial1 import tutor1
+#from  tutorial1 import tutor1
 from  flask import request, render_template
 #from  . import tutorial1
+from  . import tutor1
+#import tutor1
 
 @tutor1.route('/')
 @tutor1.route('/<user>')
