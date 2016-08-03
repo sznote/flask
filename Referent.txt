@@ -8,8 +8,10 @@ http://flask.pocoo.org/docs/0.11/patterns/packages/
 vidio
 
 
-https://www.youtube.com/watch?v=59cIRELecI0&index=1&list=PLihUZHHwjm2HFZgxFEugnXJlAHUJ4UhmC
+
+
 https://www.youtube.com/watch?v=mr90d7fp3SE&list=PLQVvvaa0QuDcOS4l8RCWh0olq_je0OKaP
+https://www.youtube.com/watch?v=M1IVwFAH9Wo
 
 https://www.youtube.com/watch?v=ZVGwqnjOKjk&list=PL6gx4Cwl9DGDi9F_slcQK7knjtO8TUvUs (7)
 https://www.youtube.com/user/thenewboston/playlists
