@@ -1,6 +1,7 @@
-from app import app
+from main import app
 
 #from flask_sqlalchemy import  SQLAlchemy
 #db = SQLAlchemy(app)
 
-app.run()
+if __name__ == '__main__':
+    app.run()
