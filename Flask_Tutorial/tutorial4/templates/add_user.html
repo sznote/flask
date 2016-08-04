@@ -13,5 +13,11 @@
 </form>
 
 
+{% for x in myuser %}
+	<li> {{x.id }}.  {{ x.username }}   -    {{ x.email}} </li>
+{% endfor %}
+
+{{ oneItem.username }}
+
 </body>
 </html>

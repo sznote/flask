@@ -1,5 +1,5 @@
 import os
-from flask  import Flask, render_template, request, redirect
+from flask  import Flask, render_template, request, redirect,url_for
 from flask_sqlalchemy import  SQLAlchemy
 
 app =  Flask(__name__)
@@ -24,13 +24,25 @@ class User(db.Model):
         self.email = email
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return '<User %r, %r>' % (self.username, self.email)
 
 
 
 @app.route("/")
 def index():
-	return  render_template("add_user.html")
+	myuser = User.query.all()
+	oneItem  = User.query.filter_by(username="sahai").first()
+
+	return  render_template("add_user.html", myuser=myuser, oneItem=oneItem)
+
+
+@app.route('/profile/<username>')
+def profile(username):
+	myuser = User.query.filter_by(username=username).first()
+	if  myuser:
+		return render_template("profile.html",myuser=myuser)	
+	else:
+		return "User not found!!"
 
 @app.route("/post_user", methods=['GET', 'POST'])
 def post_user():
@@ -44,8 +56,8 @@ def post_user():
 		except:
 			return "Account and Email have Register"
 
-		#return redirect(url_for('/'))
-		return render_template("posts.html")
+		return redirect(url_for('index'))
+		#return render_template("posts.html")
 
 
 if __name__ == "__main__":

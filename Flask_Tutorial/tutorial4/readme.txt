@@ -13,3 +13,7 @@ create db. manual
  4. Add Data to Our database.
 
  5. Quering The Database
+
+ 6. Dynamic Url Querying.
+
+ 7. 
