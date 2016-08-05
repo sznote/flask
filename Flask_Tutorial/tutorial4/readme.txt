@@ -16,4 +16,7 @@ create db. manual
 
  6. Dynamic Url Querying.
 
- 7. 
+ 7. Implement Authentication In Flask with Flask-Security
+ https://pythonhosted.org/Flask-Security/
+
+pip install flask-security 
