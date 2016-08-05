@@ -1,19 +1,28 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from flask.ext.security import Security, SQLAlchemyUserDatastore, Usermixin, RoleMixin, login_required
+from flask.ext.security import Security, SQLAlchemyUserDatastore, UserMixin, RoleMixin, login_required
+
+from flask_mail import Mail
+
 
 app = Flask(__name__)
+
 
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///' + os.path.join(basedir, 'app.db')
+app.config['SECURITY_REGISTERABLE'] = True
 app.config['SECRET_KEY'] = 'super-secret'
 
-
+app.config['MAIL_SERVER']='172.16.100.10'
+app.config['MAIL_PORT'] = '25'
 #SQLALCHEMY_TRACK_MODIFICATIONS =  True
+
+mail = Mail()
+mail.init_app(app)
 
 
 db = SQLAlchemy(app)
@@ -56,19 +65,24 @@ security = Security(app, user_datastore)
 
 #     def __repr__(self):
 #         return '<User %r, %r>' % (self.username, self.email)
+# @app.before_first_request
+# def create_user():
+#     db.create_all()
+#     user_datastore.create_user(email='matt@nobien.net', password='password')
+#     db.session.commit()
 
 
+#@login_required
 @app.route("/")
 def index():
     myuser = User.query.all()
-    oneItem = User.query.filter_by(username="sahai").first()
-
-    return render_template("add_user.html", myuser=myuser, oneItem=oneItem)
+    #oneItem = User.query.filter_by(username="sahai").first()
+    return render_template("add_user.html", myuser=myuser)
 
 
 @app.route('/profile/<username>')
 def profile(username):
-    myuser = User.query.filter_by(username=username).first()
+    myuser = User.query.filter_by(email=username).first()
     if myuser:
         return render_template("profile.html", myuser=myuser)
     else:
