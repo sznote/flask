@@ -72,7 +72,7 @@ security = Security(app, user_datastore)
 #     db.session.commit()
 
 
-#@login_required
+
 @app.route("/")
 def index():
     myuser = User.query.all()
@@ -81,6 +81,7 @@ def index():
 
 
 @app.route('/profile/<username>')
+@login_required
 def profile(username):
     myuser = User.query.filter_by(email=username).first()
     if myuser:
