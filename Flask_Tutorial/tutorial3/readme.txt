@@ -1,0 +1,1 @@
+1 Setting up a static site, Hello world

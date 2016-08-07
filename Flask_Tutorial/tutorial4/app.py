@@ -79,6 +79,9 @@ def index():
     #oneItem = User.query.filter_by(username="sahai").first()
     return render_template("add_user.html", myuser=myuser)
 
+@app.route("/base")
+def base():
+    return render_template("home.html")
 
 @app.route('/profile/<username>')
 @login_required
