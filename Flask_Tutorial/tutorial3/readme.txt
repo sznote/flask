@@ -12,3 +12,15 @@ posts=[dict(t=row[0],d=row[1])  for  row in x ]
 
 for z in posts:
     print z['d']
+
+6. List Comprehensions
+a=  [{'description': u"I'm good.", 'title': u'Good'}]
+for x in a:
+...     print x["title"]
+
+7. unit Test.
+8. Deploy to Heroku 
+9. SqlAlchemy
+	pip install Flask-SQLAlchemy
+	pip install Flask-SQLAlchemy --upgrade
+10. Config 

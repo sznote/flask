@@ -1,10 +1,31 @@
-from flask import Flask, render_template, url_for, redirect,  url_for, request, session, flash
+from flask import Flask, render_template, url_for, redirect,  url_for, request, session, flash, g
 from functools import wraps
+from flask_sqlalchemy import SQLAlchemy
+import sqlite3
 
 app = Flask(__name__)
 
-app.config['DEBUG'] = True
-app.config['SECRET_KEY'] = "myname is sahai"
+# app.config['DEBUG'] = True
+# app.config['SECRET_KEY'] = "myname is sahai"
+# app.config['DATABASE'] = 'sample.db'
+# app.config['SQLALCHEMY_DATABASE_URL'] = 'sqlite:///tmp/posts.db'
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config.from_object('config.BaseConfig')
+db = SQLAlchemy(app)
+
+
+# class Postsdb(db.Model):
+# 	id =  db.Column(db.Integer, primary_key=True)
+# 	title = db.Column(db.String(120))
+# 	description = db.Column(db.Text)
+
+# 	def __init__(self, title, description):
+# 		self.title = title
+# 		self.description = description
+
+# 	def  __repr__(self):
+# 		return '<tilte %r>' % self.title
+
 
 
 
@@ -18,24 +39,34 @@ def login_required(f):
 			return  redirect(url_for('login'))
 	return warp
 
-# @app.route("/")
-# def  index():
-# 	#return "Hello World !!!"
-# 	try: 
-# 		mylogin = session['logined_in']
-# 		if mylogin == True:
-# 			mesg = "Login Sucess!!"
-# 	except:
-# 		mesg = "Not Login!"
-	
-# 	return render_template("index.html", mesg=mesg)
+
 
 @app.route("/")
 @login_required
 def home():
-		# if  session['logined_in'] == True:
-		# 	flash("hello")	
-		return render_template("index.html")
+
+		# # if  session['logined_in'] == True:
+		# # 	flash("hello")	
+		# try:
+		# 	g.db  = connect_db()
+		# 	cur = g.db.execute('select * from posts')
+			
+		# 	posts_dic={} #dict
+		# 	posts = []  #list
+
+		# 	for row in  cur.fetchall():
+		# 		#posts_dic["title"] = row[0]
+		# 		#posts_dic["description"] = row[1]
+		# 		#posts.append(posts_dic)
+		# 		posts.append(dict(title=row[0], description	=row[1]) )
+		# 		#print  posts
+		# 	#posts =  [dict(title=row[0], description=row[1]) for row in cur.fetchall() ]
+		# 	g.db.close()
+		#	except sqlit3.OperationError:
+		#		flash("You have on  database!!")
+
+		return render_template("index.html", posts=posts)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -50,9 +81,11 @@ def login():
 			return redirect(url_for('home'))
 	return render_template("login.html",error=error)
 
+
 @app.route('/welcome')
 def welcome():
 	return render_template('welcome.html')
+
 
 @app.route('/logout')
 @login_required
@@ -62,5 +95,25 @@ def logout():
 	#flash('fuck!!!!')
 	return  redirect(url_for('welcome'))
 
+
+# def connect_db():
+# 	return sqlite3.connect(app.config['DATABASE'])
+
+
+
+
 if __name__ == "__main__":
 	app.run()
+
+
+# @app.route("/")
+# def  index():
+# 	#return "Hello World !!!"
+# 	try: 
+# 		mylogin = session['logined_in']
+# 		if mylogin == True:
+# 			mesg = "Login Sucess!!"
+# 	except:
+# 		mesg = "Not Login!"
+	
+# 	return render_template("index.html", mesg=mesg)

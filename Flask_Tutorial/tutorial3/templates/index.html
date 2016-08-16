@@ -2,10 +2,21 @@
 
 {% block content %}
       <div class="starter-template">
+      <!-- 
         <h1>Bootstrap starter template</h1>
         <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.
         <br> Click <a href="{{ url_for('logout') }}"> here </a> to Logout. </p>
-      </div>  
+      -->
+
+      <h3> Posts </h3>
+      	{%  for post in posts %}
+      	<strong>Title:</strong> {{ post.tilte }} <br>
+      	<strong>Post: </strong> {{ post.description }} <br>
+      	{% endfor %}
+
+	</div> <!--end starter-template -->
+
+	  <br> Click <a href="{{ url_for('logout') }}"> here </a> to Logout. </p>
       {% for  message in get_flashed_messages() %}
         {{ message }}
       {% endfor %}
