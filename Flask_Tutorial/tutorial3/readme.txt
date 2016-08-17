@@ -47,4 +47,6 @@ for x in a:
  -- config.py
 SECRET_KEY = '\xee\x00\xbc\x147\x1c\xcc\xec\r\xe45\x08\xcc\xdc\xda\xfc\x93\xa1V\xd7\x16\xa7\x0e\xf9'
 
-12. Heroku Configure Settings
+12. Heroku Configure Settings , How to presql 
+13. Heroku 
+14. Local ProgreSql Setup.
