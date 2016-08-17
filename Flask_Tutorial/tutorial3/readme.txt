@@ -23,4 +23,28 @@ for x in a:
 9. SqlAlchemy
 	pip install Flask-SQLAlchemy
 	pip install Flask-SQLAlchemy --upgrade
+
+>>> from app import db
+>>> from models import BlogPost
+>>> posts = db.session.query(BlogPost).all()
+>>> posts
+[(Good,I'm good.), (Well,I'm well.), (Test,Shell Test)]
+
+>>> db.session.add(BlogPost("Test2", "Shell2 Test"))
+>>> db.session.commit(BlogPost)
+>>> db.session.commit()
+
+
+
 10. Config 
+>>> from app import app
+>>> print app.config
+
+11. Secret Key.
+>> import os
+>> os.urandom(24)
+
+ -- config.py
+SECRET_KEY = '\xee\x00\xbc\x147\x1c\xcc\xec\r\xe45\x08\xcc\xdc\xda\xfc\x93\xa1V\xd7\x16\xa7\x0e\xf9'
+
+12. Heroku Configure Settings

@@ -1,7 +1,9 @@
-from flask import Flask, render_template, url_for, redirect,  url_for, request, session, flash, g
+#from flask import Flask, render_template, url_for, redirect,  url_for, request, session, flash, g
+from flask import Flask, render_template, url_for, redirect,  url_for, request, session, flash
 from functools import wraps
 from flask_sqlalchemy import SQLAlchemy
-import sqlite3
+
+#import sqlite3
 
 app = Flask(__name__)
 
@@ -10,9 +12,17 @@ app = Flask(__name__)
 # app.config['DATABASE'] = 'sample.db'
 # app.config['SQLALCHEMY_DATABASE_URL'] = 'sqlite:///tmp/posts.db'
 # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config.from_object('config.BaseConfig')
+#app.config.from_object('config.BaseConfig')
+
+#config
+import os
+app.config.from_object('config.DevelopmentConfig')
+#app.config.from_object(os.environ['APP_SETTINGS'])
+#export APP_SETTINGS='config.DevelopmentConfig'
+
 db = SQLAlchemy(app)
 
+from models import * 
 
 # class Postsdb(db.Model):
 # 	id =  db.Column(db.Integer, primary_key=True)
@@ -64,6 +74,11 @@ def home():
 		# 	g.db.close()
 		#	except sqlit3.OperationError:
 		#		flash("You have on  database!!")
+		#posts = db.session.query(BlogPost).all()
+		#posts  = BlogPost.query.all()
+		posts = db.session.query(BlogPost).all()
+		# BlogPost.query.all()
+		#print posts.description
 
 		return render_template("index.html", posts=posts)
 

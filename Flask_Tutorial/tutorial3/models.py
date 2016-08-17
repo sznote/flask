@@ -6,17 +6,15 @@ class BlogPost(db.Model):
 
 	id = db.Column(db.Integer,primary_key=True)
 	title = db.Column(db.String(80), nullable=False)
-	descripton = db.Column(db.String, nullable=False)
+	description = db.Column(db.String, nullable=False)
 
-	def __init__(self,title,descripton):
+	def __init__(self,title,description):
 		self.title = title
-		self.descripton =  descripton
+		self.description =  description
 
 	def __repr__(self):
-		return '<{}>'.format(self.title, self.descripton)
-
-
-	
-
+	# 	return '(title: {}, descripton:{})'.format(self.title, self.descripton)
+		return '<title {}> '. format(self.title)
+			
 
 
