@@ -51,3 +51,4 @@ SECRET_KEY = '\xee\x00\xbc\x147\x1c\xcc\xec\r\xe45\x08\xcc\xdc\xda\xfc\x93\xa1V\
 13. Heroku 
 14. Local ProgreSql Setup.
 15. Managing Database Migrations with Flask-Migrate.
+ pip install flask-migrate
