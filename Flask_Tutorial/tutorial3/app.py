@@ -2,6 +2,7 @@
 from flask import Flask, render_template, url_for, redirect,  url_for, request, session, flash
 from functools import wraps
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 
 #import sqlite3
 
@@ -20,7 +21,12 @@ app.config.from_object('config.DevelopmentConfig')
 #app.config.from_object(os.environ['APP_SETTINGS'])
 #export APP_SETTINGS='config.DevelopmentConfig'
 
+
+
 db = SQLAlchemy(app)
+
+bcrypt  = Bcrypt(app)
+
 
 from models import * 
 

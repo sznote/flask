@@ -50,5 +50,23 @@ SECRET_KEY = '\xee\x00\xbc\x147\x1c\xcc\xec\r\xe45\x08\xcc\xdc\xda\xfc\x93\xa1V\
 12. Heroku Configure Settings , How to presql 
 13. Heroku 
 14. Local ProgreSql Setup.
-15. Managing Database Migrations with Flask-Migrate.
+15. Managing Database Migrations with Flask-Migrate. *** important **
  pip install flask-migrate
+
+16. Database  Downgrades with Flask-Migrate/Alembic  ***important **
+python manage.py db --help
+python manage.py db downgrade  -1
+python manage.py db history
+
+17. virtualenvwrapper
+pip freeze  > requirement.txt
+mkvirtualenv  discover-flask
+pip install -r  requirement.txt
+postactivate
+
+18. Password Hashing
+pip install flask-bcrypt
+
+python manage.py   db migrate
+python manage.py   db upgrade
+

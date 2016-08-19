@@ -1,1 +1,1 @@
-d:\pywin\pwin27\Scripts\activate
+d:\pythonvir\pywin27\Scripts\activate

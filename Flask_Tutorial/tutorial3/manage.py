@@ -18,4 +18,4 @@ if __name__ == '__main__':
 # 			create  new table on models.py
 # python manage.py db migrate ;; create script .py to migrate database, On migrations -> versions -> xxx.py
 # python manage.py  db  upgrade
-#
+# python manage.py runserver
