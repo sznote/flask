@@ -70,3 +70,12 @@ pip install flask-bcrypt
 python manage.py   db migrate
 python manage.py   db upgrade
 
+19. Bludprints.
+
+.
+├── __init__.py
+└── users
+    ├── __init__.py
+    ├── templates
+    │   └── login.html
+    └── views.py
