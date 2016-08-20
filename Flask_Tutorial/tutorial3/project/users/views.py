@@ -1,9 +1,5 @@
-from  flask import flash, redirect, render_template, request, session, url_for, Blueprint
-from app  import app
-from flask_bcrypt import Bcrypt
-
-bcrypt  =   Bcrypt(app)
-
+from  flask import flash, redirect, render_template, request, \
+	  session, url_for, Blueprint
 from functools  import wraps
 
 users_blueprint = Blueprint( 
@@ -54,7 +50,7 @@ def login():
 		else:
 			session['logined_in'] = True
 			flash('You are login Success!!')
-			return redirect(url_for('home'))
+			return redirect(url_for('home.home'))
 	return render_template("login.html",error=error)
 
 

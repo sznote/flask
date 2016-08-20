@@ -5,7 +5,7 @@
         <h1> Welcome to  Flask!! </h1>
         <p class="lead">
              Hello My World !!
-          click <a href="{{ url_for('home' ) }}"> here </a> to Home.</p>
+          click <a href="{{ url_for('home.home' ) }}"> here </a> to Home.</p>
       </div>
 
       {% for  message in get_flashed_messages() %}
