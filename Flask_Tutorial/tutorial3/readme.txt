@@ -80,3 +80,5 @@ python manage.py   db upgrade
     ├── templates
     │   └── login.html
     └── views.py
+    
+20. Blueprints Redux

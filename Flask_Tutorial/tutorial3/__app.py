@@ -1,54 +1,42 @@
 #from flask import Flask, render_template, url_for, redirect,  url_for, request, session, flash, g
-from flask import Flask, render_template, url_for, redirect,  url_for, request, session, flash
+from flask import  render_template, url_for, redirect,  url_for, request, session, flash
 from functools import wraps
-from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt
 
-#import sqlite3
+# #import sqlite3
+# app = Flask(__name__)
+# # app.config['DEBUG'] = True
+# # app.config['SECRET_KEY'] = "myname is sahai"
+# # app.config['DATABASE'] = 'sample.db'
+# # app.config['SQLALCHEMY_DATABASE_URL'] = 'sqlite:///tmp/posts.db'
+# # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+# #app.config.from_object('config.BaseConfig')
 
-app = Flask(__name__)
+# #config
+# import os
+# app.config.from_object('config.DevelopmentConfig')
+# #app.config.from_object(os.environ['APP_SETTINGS'])
+# #export APP_SETTINGS='config.DevelopmentConfig'
 
-# app.config['DEBUG'] = True
-# app.config['SECRET_KEY'] = "myname is sahai"
-# app.config['DATABASE'] = 'sample.db'
-# app.config['SQLALCHEMY_DATABASE_URL'] = 'sqlite:///tmp/posts.db'
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-#app.config.from_object('config.BaseConfig')
+# db = SQLAlchemy(app)
+# bcrypt  = Bcrypt(app)
 
-#config
-import os
-app.config.from_object('config.DevelopmentConfig')
-#app.config.from_object(os.environ['APP_SETTINGS'])
-#export APP_SETTINGS='config.DevelopmentConfig'
+# from models import * 
 
+# from project.users.views import users_blueprint
 
+# app.register_blueprint(users_blueprint)
 
-db = SQLAlchemy(app)
+# # class Postsdb(db.Model):
+# # 	id =  db.Column(db.Integer, primary_key=True)
+# # 	title = db.Column(db.String(120))
+# # 	description = db.Column(db.Text)
 
-bcrypt  = Bcrypt(app)
+# # 	def __init__(self, title, description):
+# # 		self.title = title
+# # 		self.description = description
 
-
-from models import * 
-
-from project.users.views import users_blueprint
-
-
-app.register_blueprint(users_blueprint)
-
-# class Postsdb(db.Model):
-# 	id =  db.Column(db.Integer, primary_key=True)
-# 	title = db.Column(db.String(120))
-# 	description = db.Column(db.Text)
-
-# 	def __init__(self, title, description):
-# 		self.title = title
-# 		self.description = description
-
-# 	def  __repr__(self):
-# 		return '<tilte %r>' % self.title
-
-
-
+# # 	def  __repr__(self):
+# # 		return '<tilte %r>' % self.title
 
 def login_required(f):
 	@wraps(f)
@@ -125,12 +113,8 @@ def logout():
 # def connect_db():
 # 	return sqlite3.connect(app.config['DATABASE'])
 
-
-
-
-if __name__ == "__main__":
-	app.run()
-
+# if __name__ == "__main__":
+# 	app.run()
 
 # @app.route("/")
 # def  index():
