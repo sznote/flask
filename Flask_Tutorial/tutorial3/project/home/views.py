@@ -28,6 +28,7 @@ def home():
 
 
 @home_blueprint.route('/welcome')
+#@login_required
 def welcome():
 	return render_template('welcome.html')
 

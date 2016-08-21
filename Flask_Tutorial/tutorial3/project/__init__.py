@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 
 app = Flask(__name__)
-bcrtyp = Bcrypt(app)
+bcrypt = Bcrypt(app)
 app.config.from_object('config.DevelopmentConfig')
 db = SQLAlchemy(app)
  

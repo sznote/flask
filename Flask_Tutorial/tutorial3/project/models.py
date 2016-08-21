@@ -1,4 +1,4 @@
-from project import db, bcrtyp
+from project import db, bcrypt
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
