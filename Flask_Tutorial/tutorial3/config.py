@@ -7,10 +7,22 @@ class  BaseConfig(object):
 	SQLALCHEMY_DATABASE_URI = 'sqlite:///posts.db'
 	#DATABASE = 'sample.db'
 
+
+
+class TestConfig(BaseConfig):
+	DEBUG = True
+	TESTING = True
+	WTF_CSRF_ENABLED = False
+	PRESERVE_CONTEXT_ON_EXCEPTION = False
+	#SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
+	SQLALCHEMY_DATABASE_URI = 'sqlite:///test.db'
+
+
 class DevelopmentConfig(BaseConfig):
 	DEBUG = True
 
 
 class ProductionConfig(BaseConfig):
 	DEBUG = False
+
 

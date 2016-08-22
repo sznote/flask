@@ -2,21 +2,22 @@ from project import app, db
 from project.models import BlogPost
 from flask import  render_template, url_for, redirect,  url_for, request, session, flash, Blueprint
 from functools import wraps
+from flask_login import login_required
 
 home_blueprint = Blueprint(
 	'home', __name__,
 	template_folder='templates'
 )
 
-def login_required(test):
-	@wraps(test)
-	def warp(*args, **kwargs):
-		if 'logined_in' in session:
-			return test(*args, **kwargs)
-		else:
-			flash ('@Loing_required You need to login  first.')
-			return  redirect(url_for('users.login'))
-	return warp
+# def login_required(test):
+# 	@wraps(test)
+# 	def warp(*args, **kwargs):
+# 		if 'logged_in' in session:
+# 			return test(*args, **kwargs)
+# 		else:
+# 			flash ('@Loing_required You need to login  first.')
+# 			return  redirect(url_for('users.login'))
+# 	return warp
 
 
 

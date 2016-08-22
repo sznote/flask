@@ -1,9 +1,11 @@
 from  flask import flash, redirect, render_template, request, \
-	  session, url_for, Blueprint
-from functools  import wraps
+	  url_for, Blueprint
+#from functools  import wraps
 
 from .forms  import LoginForm
 from project.models import User, bcrypt
+from flask_login import login_user, login_required, logout_user
+
 #from project  import  bcrypt
 
 
@@ -14,15 +16,15 @@ users_blueprint = Blueprint(
 	)
 
 
-def login_required(test):
-	@wraps(test)
-	def wrap(*args, **kwargs):
-		if 'logged_in' in session:
-			return test(*args, **kwargs)
-		else:
-			flash ('You need to login frist!!')
-			return redirect(url_for('users.login'))
-	return wrap
+# def login_required(test):
+# 	@wraps(test)
+# 	def wrap(*args, **kwargs):
+# 		if 'logged_in' in session:
+# 			return test(*args, **kwargs)
+# 		else:
+# 			flash ('You need to login frist!!')
+# 			return redirect(url_for('users.login'))
+# 	return wrap
 
 ###############
 #### routes ###
@@ -59,7 +61,8 @@ def login():
 			# 	error = 'Invalid credentials Plases try again.'
 			# 	print request.form['username']
 			# else:
-				session['logined_in'] = True
+			#	session['logined_in'] = True
+				login_user(user)
 				flash('You are login Success!!')
 				return redirect(url_for('home.home'))
 			else:
@@ -74,7 +77,8 @@ def login():
 @login_required
 
 def logout():
-	session.pop('logged_in', None)
+	#session.pop('logged_in', None)
+	logout_user()
 	#session.clear()
 	flash('You were  logged out')
-	return redirect(url_for('welcome'))
+	return redirect(url_for('home.welcome'))
