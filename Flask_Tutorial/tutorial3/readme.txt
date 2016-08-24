@@ -171,3 +171,5 @@ pip install flask-testing
 23.
 
 24. Testing User Login and Logout.
+
+25. User Registration (functionality and unit tests)

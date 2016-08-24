@@ -50,6 +50,5 @@ class User(db.Model):
 	def  get_id(self):
 		return unicode(self.id)
 
-
 	def __repr__(self):
 		return '<name {}>'. format(self.name)

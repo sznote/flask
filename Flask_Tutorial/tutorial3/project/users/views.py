@@ -49,6 +49,7 @@ users_blueprint = Blueprint(
 
 
 @users_blueprint.route('/login', methods=['GET', 'POST'])
+
 def login():
 	error = None
 	form = LoginForm(request.form)
@@ -80,5 +81,5 @@ def logout():
 	#session.pop('logged_in', None)
 	logout_user()
 	#session.clear()
-	flash('You were  logged out')
+	flash('You were logged out')
 	return redirect(url_for('home.welcome'))
