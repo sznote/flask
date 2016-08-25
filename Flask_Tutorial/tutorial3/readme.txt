@@ -175,3 +175,5 @@ pip install flask-testing
 25. User Registration (functionality and unit tests)
 
 26. Finalize Messaging system
+
+27-30 please see it.
