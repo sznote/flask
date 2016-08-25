@@ -56,19 +56,9 @@ class UsersViewsTests(BaseTestCase):
 		response  = self.client.get('/login', content_type='html/text')
 		self.assertTrue(b'Please sign in' in response.data)
 
-	# # Ensure login  behaves  correctly  given the correct  credentials
 
-	def test_correct_login(self):
-		with self.client:		
-			#tester = app.test_client(self)
-			response  = self.client.post(
-				'/login',
-				 data=dict(username="admin",password="admin"),
-				 follow_redirects = True
-			)
-			self.assertIn(b'You are login Success!!', response.data)
-			self.assertTrue(current_user.name == "admin")
-			self.assertTrue(current_user.is_active())
+
+	
 
 	# Ensure login  behaves  correctly  given the incorrect  credentials
 	def test_incorrect_login(self):
@@ -80,6 +70,19 @@ class UsersViewsTests(BaseTestCase):
 		)
 		self.assertIn(b'Invalid credentials Plases try again', response.data)
 	
+
+	# Ensure login  behaves  correctly  given the correct  credentials
+	def test_correct_login(self):
+		with self.client:		
+			#tester = app.test_client(self)
+			response  = self.client.post(
+				'/login',
+				 data=dict(username="admin",password="admin"),
+				 follow_redirects = True
+			)
+			self.assertIn(b'You are login Success!!', response.data)
+			self.assertTrue(current_user.name == "admin")
+			self.assertTrue(current_user.is_active())
 
 	# # Ensure logout  behaves  correctly 
 	def test_logout(self):
@@ -94,6 +97,22 @@ class UsersViewsTests(BaseTestCase):
 	def test_logout_route_requires_login(self):
 		response = self.client.get('/logout', follow_redirects=True)
 		self.assertIn(b'Please log in to access this page', response.data)
+
+
+	# Ensure user can register
+
+	def test_user_registeration(self):
+		with self.client:		
+			#tester = app.test_client(self)
+			response  = self.client.post(
+				'/register/',
+				 data=dict(username="somchai",email="somechai@gmail.com",  
+				 	password="somchai", confirm="somchai"),
+				 follow_redirects = True
+			)
+			self.assertIn(b'Welcome to Flask!', response.data)
+			self.assertTrue(current_user.name == "somchai")
+			self.assertTrue(current_user.is_active())
 
 
 if __name__ == '__main__':

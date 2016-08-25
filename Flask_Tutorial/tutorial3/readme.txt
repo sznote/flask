@@ -173,3 +173,5 @@ pip install flask-testing
 24. Testing User Login and Logout.
 
 25. User Registration (functionality and unit tests)
+
+26. Finalize Messaging system
