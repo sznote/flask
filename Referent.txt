@@ -25,10 +25,10 @@ tutorial4 <Chris Hawkes>
 
 
 https://www.youtube.com/watch?v=Lv1fv-HmkQo&list=PLQVvvaa0QuDc_owjTbIY4rbgXOFkUYOUB (35)
-tutorial3<sentdex>
+tutorial5<sentdex>
 
 https://www.youtube.com/watch?v=WfpFUmV1d0w&list=PLLjmbh6XPGK4ISY747FUHXEl9lBxre4mM (30)
 <Michael Herman>
-tutorial2
+tutorial3
 
 http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-iii-web-forms
