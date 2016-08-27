@@ -177,3 +177,91 @@ pip install flask-testing
 26. Finalize Messaging system
 
 27-30 please see it.
+
+
+
+
+##############
+.
+├── __app.py
+├── __init__.pyc
+├── app.pyc
+├── BluePrints.png
+├── config.py
+├── config.pyc
+├── db_create.py
+├── db_create_user.py
+├── manage.py
+├── migrations
+│   ├── alembic.ini
+│   ├── env.py
+│   ├── env.pyc
+│   ├── README
+│   ├── script.py.mako
+│   └── versions
+│       ├── 05aec245c565_.py
+│       ├── 05aec245c565_.pyc
+│       └── 75234f9195a4_.py
+├── models.py
+├── models.pyc
+├── project
+│   ├── __init__.py
+│   ├── __init__.pyc
+│   ├── home
+│   │   ├── __init__.py
+│   │   ├── __init__.pyc
+│   │   ├── forms.py
+│   │   ├── forms.pyc
+│   │   ├── templates
+│   │   │   ├── index.html
+│   │   │   └── welcome.html
+│   │   ├── views.py
+│   │   └── views.pyc
+│   ├── models.py
+│   ├── models.pyc
+│   ├── posts.db
+│   ├── static
+│   │   ├── css
+│   │   │   ├── bootstrap.css
+│   │   │   ├── bootstrap.css.map
+│   │   │   ├── bootstrap.min.css
+│   │   │   ├── bootstrap.min.css.map
+│   │   │   ├── bootstrap-theme.css
+│   │   │   ├── bootstrap-theme.css.map
+│   │   │   ├── bootstrap-theme.min.css
+│   │   │   └── bootstrap-theme.min.css.map
+│   │   ├── customs
+│   │   │   ├── signin.css
+│   │   │   └── starter-template.css
+│   │   ├── fonts
+│   │   │   ├── glyphicons-halflings-regular.eot
+│   │   │   ├── glyphicons-halflings-regular.svg
+│   │   │   ├── glyphicons-halflings-regular.ttf
+│   │   │   ├── glyphicons-halflings-regular.woff
+│   │   │   └── glyphicons-halflings-regular.woff2
+│   │   └── js
+│   │       ├── bootstrap.js
+│   │       ├── bootstrap.min.js
+│   │       └── npm.js
+│   ├── templates
+│   │   ├── base.html
+│   │   ├── login.html_
+│   │   ├── myhome.html
+│   │   └── tem-login.html
+│   ├── test.db
+│   └── users
+│       ├── __init__.py
+│       ├── __init__.pyc
+│       ├── forms.py
+│       ├── forms.pyc
+│       ├── templates
+│       │   ├── login.html
+│       │   └── register.html
+│       ├── views.py
+│       └── views.pyc
+├── readme.txt
+├── requirement.txt
+├── run.py
+├── sql.py
+├── test.py
+└── views.py

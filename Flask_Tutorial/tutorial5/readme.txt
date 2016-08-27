@@ -1,1 +1,18 @@
 2.  Basic setup
+# apache config
+
+ <VirutalHost *:80>
+ WSGIScriptAlias / /var/www/FlaskApp/flaskapp.wsgi
+ 	<Directory /var/www/FlaskApp/FlaskApp/>
+ 			Order  allow,deny
+ 			Allow  from all
+ 	</Directory>
+ 	Alias /static  /var/www/FlaskApp/FlaskApp/static
+ 	<Directory /var/www/FlaskApp/FlaskApp/static/>
+ 			Order  allow,deny
+ 			Allow  from all
+ 	</Directory>
+ 	...
+ </VirutalHost>
+
+ 3. Bootstrap and jinja Templates
