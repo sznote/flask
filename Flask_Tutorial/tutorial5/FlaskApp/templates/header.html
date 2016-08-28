@@ -1,0 +1,35 @@
+<html>
+<head>
+
+	<link href="{{ url_for ('static',filename='css/bootstrap.min.css')  }}" rel=stylesheet>
+	<link rel="shortcut icon" href="{{ url_for ('static',filename='favicon.ico')  }}">
+
+</head>
+
+
+<body>
+
+{% include "navbar2.html" %}
+
+
+
+<div class="border-row" style="width:100%; margin-botton: 15px;"> </div>
+<div class="container-fluid" style="min-hight:100%; width:80%">
+
+	{% block body %}
+	{% endblock %}
+
+</div>
+
+
+	
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}" ></script>
+
+
+</body>
+
+
+
+</html>
