@@ -16,6 +16,21 @@
 <div class="border-row" style="width:100%; margin-botton: 15px;"> </div>
 <div class="container-fluid" style="min-hight:100%; width:80%">
 
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+   
+    {% for message in messages %}
+      <div class="alert alert-success" role="alert">  
+ 
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      {{ message }}
+      </div>
+    {% endfor %}
+   
+  {% endif %}
+{% endwith %}
+
+
 	{% block body %}
 	{% endblock %}
 
