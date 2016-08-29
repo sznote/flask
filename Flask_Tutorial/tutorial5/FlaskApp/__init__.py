@@ -29,6 +29,10 @@ def page_not_found(e):
 # 	return render_template('404.html'), 404
 
 
+@app.route('/login/', methods = ['GET','POST'])
+def login_page():
+	return render_template('login.html')
+
 
 @app.route('/slashboard/')
 def slashboard():
