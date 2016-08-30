@@ -1,0 +1,39 @@
+docker pull  ubuntu:14.04
+docker pull  centos:6.8
+
+# Docker list images
+docker images
+
+# Run Docker
+
+docker  run -t  -i  --name "test01"  ubuntu:14.04  /bin/bash
+-d     : Detached
+--name : name
+--rm   : Clean up
+-t     : Allocate a pseudo-tty
+-i     : Keep  STDIN  open even if  not attached
+For interactive processes (like a shell), you must use -i -t together in order to allocate a tty for the container process. -i -t
+
+
+
+# 
+docker run -d --name  myubuntu  ubuntu:14.04 
+
+
+# to console container.
+
+
+
+
+docker  ps 
+docker ps -a
+
+CONTAINER ID        IMAGE               COMMAND                CREATED             STATUS                       PORTS               NAMES
+2e62d00838bd        ubuntu:14.04        "/bin/bash"            3 minutes ago       Exited (0) 9 seconds ago                         prickly_swartz
+0fe488aa6c6e        ubuntu:14.04        "/bin/bash name hllo   4 minutes ago       Exited (127) 4 minutes ago                       sick_kilby
+
+
+
+# Delete container
+docker rm sick_kilby
+docker rm prickly_swartz
