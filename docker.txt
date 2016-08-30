@@ -1,3 +1,7 @@
+#search image.
+docker search ubuntu
+
+#download imgate
 docker pull  ubuntu:14.04
 docker pull  centos:6.8
 
@@ -6,26 +10,38 @@ docker images
 
 # Run Docker
 
-docker  run -t  -i  --name "test01"  ubuntu:14.04  /bin/bash
--d     : Detached
+docker  run -t  -i  --name "myubuntu"  ubuntu:14.04  /bin/bash
 --name : name
 --rm   : Clean up
--t     : Allocate a pseudo-tty
--i     : Keep  STDIN  open even if  not attached
+-t, --tty=true|false
+-i, --interactive=true
 For interactive processes (like a shell), you must use -i -t together in order to allocate a tty for the container process. -i -t
 
 
 
 # 
 docker run -d --name  myubuntu  ubuntu:14.04 
+# man docker-run
+-d : Docker to run the container in the background
+-P : Docker to map any required network ports inside our container to our host
 
+
+
+# start container.
+docker start  -it  myubuntu  /bin/bash
+
+# stop container.
+docker stop   mybuntu 
 
 # to console container.
+docker exec  -it  myubuntu /bin/bash
 
 
 
 
 docker  ps 
+
+#show all containers.
 docker ps -a
 
 CONTAINER ID        IMAGE               COMMAND                CREATED             STATUS                       PORTS               NAMES
@@ -34,6 +50,71 @@ CONTAINER ID        IMAGE               COMMAND                CREATED          
 
 
 
+
+
 # Delete container
 docker rm sick_kilby
-docker rm prickly_swartz
+
+
+# man docker-run
+
+
+
+# create own image.
+% docker ps -a
+% docker   commit -m  "mysql server on cent"  -a "sahai srichock"   410e813a6b1a  centos6.8/mysql:v2
+{ v2 is tags images }
+%  docker images
+REPOSITORY           TAG                 IMAGE ID            CREATED              VIRTUAL SIZE
+centos6.8/mysql      v2                  4bd8b8a3958a        21 seconds ago       377.9 MB
+
+
+# Delete images 
+% docker rmi centos6.8/mysql:latest
+
+
+#__ iptables
+
+# run with nat to host
+#https://docs.docker.com/v1.8/articles/networking/
+
+docker  run -it --name cmysql  -p 3307:3306  centos6.8/mysql:v2
+#docker  run -it --name cmysql  -p 27.254.149.216:3307:3306  centos6.8/mysql:v2
+* not work. with command docker  run -it --name cmysql  -p 27.254.149.216:3307:3306 \
+                                                          centos6.8/mysql:v2 /etc/init.d/mysqld restart
+docker start cmysql
+#docker stop cmysql
+#docker rm cmysql
+
+
+
+Chain DOCKER (1 references)
+target     prot opt source               destination
+ACCEPT     tcp  --  0.0.0.0/0            172.17.0.15         tcp dpt:3306
+
+target     prot opt source               destination
+DOCKER     all  --  0.0.0.0/0            0.0.0.0/0           ADDRTYPE match dst-type LOCAL
+
+Chain POSTROUTING (policy ACCEPT)
+target     prot opt source               destination
+MASQUERADE  all  --  172.17.0.0/16        0.0.0.0/0
+MASQUERADE  tcp  --  172.17.0.15          172.17.0.15         tcp dpt:3306
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+DOCKER     all  --  0.0.0.0/0           !127.0.0.0/8         ADDRTYPE match dst-type LOCAL
+
+Chain DOCKER (2 references)
+target     prot opt source               destination
+DNAT       tcp  --  0.0.0.0/0            0.0.0.0/0           tcp dpt:3307 to:172.17.0.15:3306
+
+__iptables__
+
+
+
+# docker logs
+docker logs -f myubuntu
+
+
+# docker   inspecting
+docker   inspect centmysql
