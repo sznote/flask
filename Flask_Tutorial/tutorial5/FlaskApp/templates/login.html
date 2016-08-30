@@ -4,6 +4,24 @@
 {% block body %}
 
 
-  Hello login
+<div class="container">
+<br>
+
+<h4>  Please login: </h4>
+<br>
+
+
+<form action="{{ url_for('login_page') }}" method="post" class="form-inline" >
+	<input type="text" class="form-control" placeholder="username" name="username" value="{{ request.form.username }}">
+	<input type="password" class="form-control" placeholder="password" name="password" value="{{ request.form.password }}">
+	<input class="btn bth-default" type="submit" value="login">
+
+</form>
+
+</form>
+
+
+<p> {{ error }} </p>
+</div>
 
 {% endblock %}
