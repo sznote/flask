@@ -1,0 +1,13 @@
+#docker install on ubuntu.
+https://docs.docker.com/engine/installation/linux/ubuntulinux/
+
+#create swarm
+https://docs.docker.com/engine/swarm/swarm-tutorial/create-swarm/
+
+  #master
+  swarm  init  --advertise-addr   192.168.213.95
+  docker swarm join \
+    --token SWMTKN-1-65w0lbvajb181txc6h8bkos1nb3w4f5ag1arc9wp5svhwm2enn-93v22vdm0hesp6psrjb2f8hlx \
+    192.168.213.95:2377
+
+  ## add worker node to cluster.
