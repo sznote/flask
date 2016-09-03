@@ -1,6 +1,8 @@
 from flask import  Flask, render_template, flash, request, redirect, url_for
 from  content_managemant import Content
 app = Flask(__name__)
+from  dbconnect import connection
+from  flask_wtf improt  Form
 
 app.secret_key = 'some_secret'
 
@@ -51,6 +53,28 @@ def login_page():
         # if request.method == 'POST':
     #   print request.form['username']
     #return render_template('login.html',error=error)
+
+class RegistrationForm(Form):
+
+    username = TextField('username', validators=[DataRequired(),Length(min=4,max=20)] )
+    email =    TextField("Email Address", validators=[Length(min=6,max=50)])
+    password = PasswordField('Password', [validators.DataRequired(), 
+                                        validators.EqualTo('confirm', message='Passwords must match')] )
+    confirm =  PasswordFied('Repeate Password')
+    accept_tos = BooleanField('I accept the Team of Service',validators=[DataRequired()])
+
+
+
+@app.route('/register/', methods = ['GET','POST'])
+def register_page():
+    try:
+        c, conn = connection()
+        form = RegistrationForm
+
+        return ("")
+    except Exception as e:
+        return(str(e))
+
 
 
 @app.route('/slashboard/')
