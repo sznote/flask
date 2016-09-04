@@ -1,3 +1,5 @@
+https://www.youtube.com/watch?v=Lv1fv-HmkQo&list=PLQVvvaa0QuDc_owjTbIY4rbgXOFkUYOUB
+
 2.  Basic setup
 # apache config
 
@@ -45,3 +47,8 @@ def connection():
 
  15. User registration Form.
  	pip install flask-wtf
+
+ 16. User Registration cont'd
+ 	pip install passlib
+
+ 17. User Registration finished

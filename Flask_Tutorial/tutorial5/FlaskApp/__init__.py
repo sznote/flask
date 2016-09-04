@@ -1,8 +1,18 @@
-from flask import  Flask, render_template, flash, request, redirect, url_for
-from  content_managemant import Content
+from flask import  Flask, render_template, flash, request, redirect, url_for, session
+from content_managemant import Content
+from dbconnect import connection
+
+from flask_wtf import Form
+from wtforms  import  BooleanField, TextField, PasswordField
+from wtforms.validators import DataRequired, Length, Email, EqualTo
+
+from passlib.hash import sha256_crypt
+from MySQLdb import  escape_string as thwart
+import gc
+
+
 app = Flask(__name__)
-from  dbconnect import connection
-from  flask_wtf improt  Form
+
 
 app.secret_key = 'some_secret'
 
@@ -56,22 +66,67 @@ def login_page():
 
 class RegistrationForm(Form):
 
-    username = TextField('username', validators=[DataRequired(),Length(min=4,max=20)] )
-    email =    TextField("Email Address", validators=[Length(min=6,max=50)])
-    password = PasswordField('Password', [validators.DataRequired(), 
-                                        validators.EqualTo('confirm', message='Passwords must match')] )
-    confirm =  PasswordFied('Repeate Password')
+    username = TextField('username', validators=[DataRequired(), Length(min=4,max=20)] )
+    email =    TextField("Email Address", validators=[Length(min=6,max=50)])  
+    password = PasswordField('Password', validators=[DataRequired(), 
+                                        EqualTo('confirm', message='Passwords must match')] )
+
+    confirm =  PasswordField('Repeate Password')
     accept_tos = BooleanField('I accept the Team of Service',validators=[DataRequired()])
+
+
+    # username = TextField('Username', [validators.DataRequired(), validators.Length(min=4, max=20)])
+    # email =    TextField('Email Address', [validators.DataRequired(), validators.Length(min=4, max=50)] )
+    # password = PasswordField('Password', [validators.DataRequired(), validators.EqualTo('confirm', message='Passwords must match')])
+
+    # confirm = PasswordField('Repeate Password')
+    # accept_tos = BooleanField('I accept the Team of Service',[validators.DataRequired()])
 
 
 
 @app.route('/register/', methods = ['GET','POST'])
 def register_page():
     try:
-        c, conn = connection()
-        form = RegistrationForm
+        #c, conn = connection()
+        form = RegistrationForm(request.form)
 
-        return ("")
+        
+
+        #if request.method == 'POST' and form.validate_on_submit():
+        if request.method == 'POST' and form.validate():
+
+            print "POST !!!!!!"   
+        
+            username =  form.username.data
+            #username =  request.form['username']
+            email = form.email.data
+
+            password =  sha256_crypt.encrypt((str(form.password.data)))
+            
+
+            c, conn = connection()
+
+            x = c.execute("SELECT * from  users where username = %s", [ thwart(username) ] )
+
+            #x =  c.execute("SELECT * from users where username = %s", [username] )
+
+            if  int(x) > 0 :
+                #print "found user!!"
+                flash(" That username is already taken, please choose another")
+                return render_template('register.html', form=form)
+            else:
+                c.execute("insert into users (username, password, email, tracking) values (%s, %s, %s,%s)",
+                    (thwart(username), thwart(password), thwart(email), thwart("/introduction-to-python-programming/") ))
+                conn.commit()
+                flash("Thanks for Register!")
+            conn.close()
+            gc.collect()
+            session['logged_in'] = True
+            session['username'] = username
+            return redirect(url_for('dashboard'))
+
+        return render_template("register.html",form=form)
+        
     except Exception as e:
         return(str(e))
 
