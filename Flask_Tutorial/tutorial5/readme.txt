@@ -52,3 +52,4 @@ def connection():
  	pip install passlib
 
  17. User Registration finished
+ 18.  Password Hashing with Passlib
