@@ -45,24 +45,40 @@ def page_not_found(e):
 def login_page():
     error = None
     try:
+
+        c, conn =  connection()
+
         if request.method == "POST":
-            attempted_username = request.form['username']
-            attempted_password = request.form['password']
-            #flash(attempted_username)
-            #flash(attempted_password)
-            if attempted_username == "admin" and attempted_password == "password":
-                return redirect(url_for('dashboard'))
+
+            #print request.form['username']
+            #print request.form['password']
+
+            data =  c.execute("SELECT *  FROM users WHERE username  = %s",  [ thwart (  request.form['username'] ) ] )
+            data  = c.fetchone()[2]
+
+            if sha256_crypt.verify(requet.form['password'], data ):
+                session ['logged_in']  = True
+                session ['username'] = request.form['username']
+                session ['admin'] = True
+
+                flash ("Yous are now logged in")
+                return redirect( url_for("dashboard") )
             else:
-                error = "Invalid credential. Try Agian."
-        return render_template("login.html",error=error)
+                error = "Invalid credentials, Try again."
+
+        gc.collect()
+
+        return render_template("login.html", error = error)
+    
+
+
+#            attempted_username = request.form['username']
+#            attempted_password = request.form['password']
 
     except Exception as e:
         #flash(e)
-        return render_template("login.html",error=error)
+        return render_template("login.html",error= str(e))
 
-        # if request.method == 'POST':
-    #   print request.form['username']
-    #return render_template('login.html',error=error)
 
 class RegistrationForm(Form):
 
