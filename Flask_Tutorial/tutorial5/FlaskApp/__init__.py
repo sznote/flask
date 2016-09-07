@@ -11,6 +11,7 @@ from MySQLdb import  escape_string as thwart
 import gc
 
 
+
 app = Flask(__name__)
 
 
@@ -43,24 +44,32 @@ def page_not_found(e):
 
 @app.route('/login/', methods = ['GET','POST'])
 def login_page():
-    error = None
-    try:
-
-        c, conn =  connection()
-
+    error = ''
+    
+    try:       
         if request.method == "POST":
+            c, conn =  connection()
+            
+            #print ("asdfasdf %s, %s") %("100","200")
+            #a = "100 + 200 + %s"  %  "100"  * note  not , 
 
-            #print request.form['username']
-            #print request.form['password']
+            #a = "100","200","300"
+            #('100', '200', '300')
+
 
             data =  c.execute("SELECT *  FROM users WHERE username  = %s",  [ thwart (  request.form['username'] ) ] )
+            #sql = "SELECT *  FROM users WHERE username  = %s"  %( thwart (request.form['username'] ))
+            #print sql 
+            #data =  c.execute( "SELECT *  FROM users WHERE username  = '%s'"  %( thwart (request.form['username'] )) )
+            
             data  = c.fetchone()[2]
+            
+            
 
-            if sha256_crypt.verify(requet.form['password'], data ):
+            if sha256_crypt.verify(request.form['password'], data ):
                 session ['logged_in']  = True
                 session ['username'] = request.form['username']
                 session ['admin'] = True
-
                 flash ("Yous are now logged in")
                 return redirect( url_for("dashboard") )
             else:
@@ -77,7 +86,8 @@ def login_page():
 
     except Exception as e:
         #flash(e)
-        return render_template("login.html",error= str(e))
+        error = "Invalid credentials, try again"
+        return render_template("login.html",error=error)
 
 
 class RegistrationForm(Form):

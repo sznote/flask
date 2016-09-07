@@ -52,5 +52,6 @@ def connection():
  	pip install passlib
 
  17. User Registration finished
- 18.  Password Hashing with Passlib
- 19.  User login system
+ 18. Password Hashing with Passlib
+ 19. User login system
+ 20. Using  decorators wrappers, link login_required 
