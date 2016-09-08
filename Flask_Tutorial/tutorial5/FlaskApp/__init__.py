@@ -42,6 +42,28 @@ def page_not_found(e):
 #   return render_template('404.html'), 404
 
 
+def login_required(f):
+    @wraps(f)
+
+    def wrap(*args, **kwargs)
+
+        if 'logged_in' in  session:
+            return f(*args , **kwargs)
+        else:
+            flask("You need to login first")
+            return   redirect(url_for('login_page'))
+
+@app.route("/logout")
+    def logout_page():
+        session.clear()
+        flash("You have been logged out!")
+        gc.collect()
+        return  redirect(url_for('login_page'))
+        
+
+
+
+
 @app.route('/login/', methods = ['GET','POST'])
 def login_page():
     error = ''
