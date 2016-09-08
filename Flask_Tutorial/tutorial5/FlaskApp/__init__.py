@@ -1,6 +1,7 @@
 from flask import  Flask, render_template, flash, request, redirect, url_for, session
 from content_managemant import Content
 from dbconnect import connection
+from functools import wraps
 
 from flask_wtf import Form
 from wtforms  import  BooleanField, TextField, PasswordField
@@ -41,28 +42,28 @@ def page_not_found(e):
 # def page_not_found(e):
 #   return render_template('404.html'), 404
 
-
+#http://flask.pocoo.org/docs/0.11/patterns/viewdecorators/
 def login_required(f):
+
     @wraps(f)
-
-    def wrap(*args, **kwargs)
-
+    def wrap(*args, **kwargs):
         if 'logged_in' in  session:
             return f(*args , **kwargs)
         else:
-            flask("You need to login first")
-            return   redirect(url_for('login_page'))
+            flash("You need to login first")
+            return redirect(url_for('login_page'))
+    return wrap
+
+
 
 @app.route("/logout")
-    def logout_page():
-        session.clear()
-        flash("You have been logged out!")
-        gc.collect()
-        return  redirect(url_for('login_page'))
+@login_required
+def logout_page():
+    session.clear()
+    flash("You have been logged out!")
+    gc.collect()
+    return  redirect(url_for('dashboard'))
         
-
-
-
 
 @app.route('/login/', methods = ['GET','POST'])
 def login_page():
