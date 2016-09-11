@@ -1,4 +1,5 @@
 https://www.youtube.com/watch?v=Lv1fv-HmkQo&list=PLQVvvaa0QuDc_owjTbIY4rbgXOFkUYOUB
+https://github.com/pythonprogramming
 
 2.  Basic setup
 # apache config
@@ -56,3 +57,16 @@ def connection():
  19. User login system
  20. Using  decorators wrappers, link login_required 
  21. Content based on User.
+ 22. Content Management System.
+ 23. More CMS
+ 24. Crontab
+ 25. Practical  Flask
+ 26. Include.
+ 27. Flask Web Development with Python
+ http://jinja.pocoo.org/docs/dev/
+ 28. URL Converteers - Flask Web  Development with  Python28
+ 29. Flask Mail.
+ 	- pip install Flask-Mail
+ 30. Return Files with send_file.
+ 31. Proteced  directories and Files.
+ 32. jQuery with Flask - Flask Web Development.

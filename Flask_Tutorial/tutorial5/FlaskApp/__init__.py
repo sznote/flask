@@ -1,5 +1,4 @@
-from flask import  Flask, render_template, flash, request, redirect, url_for, session
-from content_managemant import Content
+from flask import  Flask, render_template, flash, request, redirect, url_for, session, send_from_directory
 from dbconnect import connection
 from functools import wraps
 
@@ -10,13 +9,43 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo
 from passlib.hash import sha256_crypt
 from MySQLdb import  escape_string as thwart
 import gc
+from flask_mail import Mail
+import os
 
 
+app = Flask(__name__, instance_path='/cygdrive/d/mycode/flask/Flask_Tutorial/tutorial5/FlaskApp/protected' )
 
-app = Flask(__name__)
+
+app.config.update(
+    DEBUG=True,
+    MAIL_SERVER='smtp.gmail.com',
+    MAIL_PORT=465,
+    MAIL_USE_SSL=True,
+    MAIL_USERNAME= 'iam.saza@gmail.com',
+    MAIL_PASSWORD= 'hello',
+    )
+
+
+mail = Mail(app)
 
 
 app.secret_key = 'some_secret'
+
+
+@app.route('/send-mail')
+def send_mail():
+    try:
+        msg = Message("Send Mail Tutorial!",
+              sender="saza@gmail.com",
+              recipients=["recievingemail@email.com"])
+        msg.body = "Yo! \n Have yo heard the good  word  of Python???"
+        mail.send(msg)
+        return  "Mail Sent"
+
+    except Exception as e:
+        return str(e)
+
+
 
 @app.route('/')
 def homepage():
@@ -94,6 +123,7 @@ def login_page():
                 session ['username'] = request.form['username']
                 session ['admin'] = True
                 flash ("Yous are now logged in")
+                gc.collect()
                 return redirect( url_for("dashboard") )
             else:
                 error = "Invalid credentials, Try again."
@@ -133,6 +163,15 @@ class RegistrationForm(Form):
 
 
 
+@app.route('/protected/<path:filename>')
+def protected(filename):
+    try:
+        return  send_from_directory(os.path.join(app.instance_path,''), filename )
+    except Exception as e:
+        print str(e)
+        return  redirect (url_for('homepage'))
+
+
 @app.route('/register/', methods = ['GET','POST'])
 def register_page():
     try:
@@ -140,7 +179,6 @@ def register_page():
         form = RegistrationForm(request.form)
 
         
-
         #if request.method == 'POST' and form.validate_on_submit():
         if request.method == 'POST' and form.validate():
 
@@ -191,4 +229,4 @@ def slashboard():
         return render_template('505.html', error=e )
 
 if __name__=='__main__':
-    app.run(debug=True)
+    app.run(debug=True, threaded=True)
