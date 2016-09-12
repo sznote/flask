@@ -1,4 +1,6 @@
-from flask import  Flask, render_template, flash, request, redirect, url_for, session, send_from_directory
+from flask import  Flask, render_template, flash, request, redirect, url_for, session, send_from_directory, \
+    jsonify
+
 from dbconnect import connection
 from functools import wraps
 
@@ -30,6 +32,29 @@ mail = Mail(app)
 
 
 app.secret_key = 'some_secret'
+
+
+@app.route('/background_process/')
+def  background_process():
+    try:
+        lang = request.args.get('proglang')
+        print lang
+        if str(lang).lower() == 'python':
+            return jsonify(result='You are wise!')
+        else:
+            return jsonify(result='Try again')
+    except Exception as e:
+        return str(e)
+
+
+@app.route('/interactive/')
+def  interactive():
+    try:
+        return render_template("interactive.html")
+    except Exception as e:
+        return str(e)
+
+
 
 
 @app.route('/send-mail')
