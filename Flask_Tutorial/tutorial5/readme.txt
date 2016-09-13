@@ -70,4 +70,8 @@ def connection():
  30. Return Files with send_file.
  31. Proteced  directories and Files.
  32. jQuery with Flask - Flask Web Development.
+<<<<<<< HEAD
  33. 
+=======
+ 	from flask  import jsonify
+>>>>>>> 4f819832065b587c236d5221d410e821cdf5a733
