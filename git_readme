@@ -4,3 +4,6 @@ git remote add origin https://github.com/sznote/flask.git
 git remote set-url origin  https://sznote@github.com/sznote/flask.git
 git push -u origin master
 git pull <remote> <branch>
+
+git log
+git diff  2ab1920ab1926c3612f17e73ac4d73381a2f37a1  Flask_Tutorial/tutorial5/readme.txt
