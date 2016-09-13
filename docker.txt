@@ -118,3 +118,7 @@ docker logs -f myubuntu
 
 # docker   inspecting
 docker   inspect centmysql
+
+
+# docker composer.
+https://docs.docker.com/compose/compose-file/
