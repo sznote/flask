@@ -118,3 +118,50 @@ docker logs -f myubuntu
 
 # docker   inspecting
 docker   inspect centmysql
+
+
+
+# docker link .
+# https://rominirani.com/docker-tutorial-series-part-8-linking-containers-69a4e5bf50fb#.qkldcq5or
+
+
+%  create containner. 
+docker run -it   --name   client01   busybox
+% start containner.
+docker start client01
+
+% create containner client02 link  client01
+# CONTAINER ID: 9154bdf662e0  NAMES: client02
+
+docker  run -it   --link  client01:client01  --name   client02   busybox
+
+
+/ # cat /etc/hosts
+127.0.0.1       localhost
+::1     localhost ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+172.17.0.3      client01 263c923a39e4
+172.17.0.4      9154bdf662e0
+
+% start containner client02
+docker start client02
+
+
+% create container client03 link  client01 , client02
+docker run -it --link  client01:client01  --link client02:client02 --name client03   busybox
+
+/ # cat /etc/hosts
+127.0.0.1       localhost
+::1     localhost ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+172.17.0.3      client01 263c923a39e4
+172.17.0.4      client02 9154bdf662e0
+172.17.0.5      09f781d53d40
+
+
