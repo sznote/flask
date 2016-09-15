@@ -135,7 +135,7 @@ docker start client01
 
 docker  run -it   --link  client01:client01  --name   client02   busybox
 
-
+%client02
 / # cat /etc/hosts
 127.0.0.1       localhost
 ::1     localhost ip6-localhost ip6-loopback
@@ -150,9 +150,10 @@ ff02::2 ip6-allrouters
 docker start client02
 
 
+
 % create container client03 link  client01 , client02
 docker run -it --link  client01:client01  --link client02:client02 --name client03   busybox
-
+%client03
 / # cat /etc/hosts
 127.0.0.1       localhost
 ::1     localhost ip6-localhost ip6-loopback
