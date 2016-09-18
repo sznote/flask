@@ -57,7 +57,7 @@ http://www.youtube.com/playlist?list=PLLjmbh6XPGK4ISY747FUHXEl9lBxre4mM
 		posts.append(post_dict)
 
 7. Unit Tests
-
+python test.py -v
 
 
 
