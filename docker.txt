@@ -169,10 +169,7 @@ ff02::2 ip6-allrouters
 
 
 =======
+
 # docker composer.
 https://docs.docker.com/compose/compose-file/
->>>>>>> 03e4d896c005017f676d8b065569ce7a36dadfa4
-=======
-# docker composer.
-https://docs.docker.com/compose/compose-file/
->>>>>>> 03e4d896c005017f676d8b065569ce7a36dadfa4
+
