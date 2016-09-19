@@ -121,6 +121,7 @@ docker   inspect centmysql
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 # docker link .
 # https://rominirani.com/docker-tutorial-series-part-8-linking-containers-69a4e5bf50fb#.qkldcq5or
@@ -167,6 +168,10 @@ ff02::2 ip6-allrouters
 172.17.0.5      09f781d53d40
 
 
+=======
+# docker composer.
+https://docs.docker.com/compose/compose-file/
+>>>>>>> 03e4d896c005017f676d8b065569ce7a36dadfa4
 =======
 # docker composer.
 https://docs.docker.com/compose/compose-file/
