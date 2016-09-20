@@ -1,8 +1,8 @@
-from flask import  Flask, render_template, request, url_for, redirect, session, flash
+from flask import  Flask, render_template, request, url_for, redirect, session, flash, g
 from functools import wraps
 from flask_sqlalchemy import SQLAlchemy
 #import sqlite3
-#import gc
+import gc
 
 
 app = Flask(__name__)
@@ -13,9 +13,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 #create the sqlalchemy object
 db = SQLAlchemy(app)
-
-
-from models import *
 
 
 
@@ -35,14 +32,25 @@ def login_required(f):
 @login_required
 def home():
 	#return "hello world!!"
-	posts = db.session.query(BlogPost).all()
+	g.db = connect_db()
+	cur =  g.db.cursor()
+	cur = g.db.execute('select * from posts')
 
-	print posts
+	post_dict = {}
+	posts = []
+	for row in cur.fetchall():
+		#post_dict['tilte'] =  row[0]
+		#post_ditc['description'] = row[1]
+		#posts.append(post_dict)
+		posts.append(dict(title=row[0], description=row[1]) )
 
+
+	#posts = [dict(title=row[0],description=row[1]) for row in cur.fetchall()]
 	context =   { 'title': "Login Page",
 				  'creator': "Sahai Srichock",
 				}
-
+	g.db.close
+	gc.collect()
 	return  render_template("index.html", posts=posts, context=context)
 
 

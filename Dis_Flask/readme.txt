@@ -59,6 +59,9 @@ http://www.youtube.com/playlist?list=PLLjmbh6XPGK4ISY747FUHXEl9lBxre4mM
 7. Unit Tests
 python test.py -v
 
+8. SQLAlchemy
+	pip install SQLAlchemy
+
 
 
 
