@@ -1,6 +1,7 @@
 from flask import  Flask, render_template, request, url_for, redirect, session, flash
 from functools import wraps
 from flask_sqlalchemy import SQLAlchemy
+from models import *
 #import sqlite3
 #import gc
 
@@ -15,7 +16,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
-from models import *
+
 
 
 
