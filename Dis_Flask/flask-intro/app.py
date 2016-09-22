@@ -1,98 +1,60 @@
-from flask import  Flask, render_template, request, url_for, redirect, session, flash
-from functools import wraps
-from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt
 
-#import sqlite3
-#import gc
+from flask import Flask, flash, redirect, session, url_for, render_template
+from flask_sqlalchemy import SQLAlchemy
+from functools import wraps
+from flask_bcrypt import Bcrypt
+import os
 
 
 app = Flask(__name__)
-bcrypt = Bcrypt(app)
-
-# config 
-
-import os
 app.config.from_object(os.environ['APP_SETTINGS'])
-
-
-#app.config.from_object('config.BaseConfig')
-
-#create the sqlalchemy object
 db = SQLAlchemy(app)
 
 from models import *
+from project.users.views import users_blueprint
+
+bcrypt = Bcrypt(app)
+
+# register our blueprints
+app.register_blueprint(users_blueprint)
+
+##########################
+#### helper functions ####
+##########################
 
 
-def login_required(f):
-	@wraps(f)
-	def wrap(*args, **kwargs):
-		if 'logged_in' in session:
-			return f(*args, **kwargs)
-		else:
-			flash('You need to login first.')
-			return  redirect(url_for('login'))
-	return wrap
+def login_required(test):
+    @wraps(test)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return test(*args, **kwargs)
+        else:
+            flash('You need to login first.')
+            return redirect(url_for('users.login'))
+    return wrap
 
 
+################
+#### routes ####
+################
+
+# use decorators to link the function to a url
 @app.route('/')
 @login_required
 def home():
-	#return "hello world!!"
-	posts = db.session.query(BlogPost).all()
-
-	print posts
-
-	context =   { 'title': "Login Page",
-				  'creator': "Sahai Srichock",
-				}
-
-	return  render_template("index.html", posts=posts, context=context)
-
+    # return "Hello, World!"  # return a string
+    posts = db.session.query(BlogPost).all()
+    return render_template('index.html', posts=posts)  # render a template
 
 
 @app.route('/welcome')
-def fwelcome():
-	#return "Welcome !!"
-	return render_template("welcome.html")
-
-@app.route('/show')
-def show():
-	name = request.args.get('name')
-	if name is not None:	
-		return name
-	else:
-		return "Hi! Guest" 
+def welcome():
+    return render_template('welcome.html')  # render a template
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
+####################
+#### run server ####
+####################
 
-	error = None
-	if request.method == 'POST':
-		if request.form['username'] != 'admin' or request.form['password'] != 'admin':
-			error = 'Invalid credentials. please try again.'
-		else:
-			session['logged_in'] = True
-			flash ('You were just logged in!')
-			return redirect(url_for('home'))
-	return  render_template("login.html", error=error)
-
-
-@app.route('/logout')
-@login_required
-def logout():
-	if  "logged_in" in session:
-		print session['logged_in']
-	flash('You were just logged out !!')	
-	session.pop('logged_in', None)
-	#print url_for('fwelcome') // retrun  /wecome
-	return redirect(url_for('fwelcome'))
-
-
-# def connect_db():
-# 	return sqlite3.connect(app.database)
-
-
-if __name__ ==  '__main__':
-	app.run(debug=True)
+if __name__ == '__main__':
+    app.run()
