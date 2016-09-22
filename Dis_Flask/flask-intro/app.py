@@ -1,24 +1,24 @@
 from flask import  Flask, render_template, request, url_for, redirect, session, flash
 from functools import wraps
 from flask_sqlalchemy import SQLAlchemy
-from models import *
+
 #import sqlite3
 #import gc
 
 
 app = Flask(__name__)
-app.secret_key = 'where some key'
-#app.database = "sample.db"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# config 
+
+import os
+app.config.from_object(os.environ['APP_SETTINGS'])
+
+#app.config.from_object('config.BaseConfig')
 
 #create the sqlalchemy object
 db = SQLAlchemy(app)
 
-
-
-
-
+from models import *
 
 
 def login_required(f):

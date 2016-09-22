@@ -59,10 +59,21 @@ http://www.youtube.com/playlist?list=PLLjmbh6XPGK4ISY747FUHXEl9lBxre4mM
 7. Unit Tests
 python test.py -v
 
-8. SQLAlchemy
+9. SQLAlchemy
 	pip install SQLAlchemy
 
+10. Configuration
 
+11. Secret Key
 
+import os
+os.urandom(24)
 
-
+12. Heroku config
+13. Heroku PostgreSQL Setup.
+14. local PostgesSQL Setup
+** 15. Managing Database Migrations with Flask-Migrate
+	pip install Flask-Migrate
+	python manage.py db init
+	python manage.py db migrate
+		-> migrations -> versions -> 4881**_.py
