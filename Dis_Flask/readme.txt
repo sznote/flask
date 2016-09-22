@@ -72,8 +72,16 @@ os.urandom(24)
 12. Heroku config
 13. Heroku PostgreSQL Setup.
 14. local PostgesSQL Setup
+
 ** 15. Managing Database Migrations with Flask-Migrate
 	pip install Flask-Migrate
 	python manage.py db init
 	python manage.py db migrate
 		-> migrations -> versions -> 4881**_.py
+	python manage.py runserver
+
+16. Database Downgrades with FLask-Migrate 
+	python manage.py  db --help
+
+17. Virtualenvwrapper
+18. Password Hashing
