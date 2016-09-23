@@ -1,27 +1,19 @@
+from project import app, db
+from project.models import  BlogPost
+from flask import Flask, flash, redirect, session, url_for, render_template, Blueprint
 
-from flask import Flask, flash, redirect, session, url_for, render_template
-from flask_sqlalchemy import SQLAlchemy
 from functools import wraps
-from flask_bcrypt import Bcrypt
-import os
 
 
-app = Flask(__name__)
-app.config.from_object(os.environ['APP_SETTINGS'])
-db = SQLAlchemy(app)
+home_blueprint = Blueprint(
+    'homes', __name__,
+    template_folder='templates'
+)
 
-from models import *
-from project.users.views import users_blueprint
-
-bcrypt = Bcrypt(app)
-
-# register our blueprints
-app.register_blueprint(users_blueprint)
 
 ##########################
 #### helper functions ####
 ##########################
-
 
 def login_required(test):
     @wraps(test)
@@ -39,22 +31,21 @@ def login_required(test):
 ################
 
 # use decorators to link the function to a url
-@app.route('/')
+@home_blueprint.route('/')
 @login_required
 def home():
     # return "Hello, World!"  # return a string
+
+
+    context =   { 'title': "Login Page",
+                  'creator': "Sahai Srichock",
+                }
+
     posts = db.session.query(BlogPost).all()
-    return render_template('index.html', posts=posts)  # render a template
+    return render_template('index.html', posts=posts, context=context)  # render a template
 
 
-@app.route('/welcome')
+@home_blueprint.route('/welcome')
 def welcome():
     return render_template('welcome.html')  # render a template
 
-
-####################
-#### run server ####
-####################
-
-if __name__ == '__main__':
-    app.run()
