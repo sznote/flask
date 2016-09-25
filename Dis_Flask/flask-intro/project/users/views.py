@@ -2,10 +2,11 @@
 from flask import flash, redirect, render_template, request, \
     session, url_for, Blueprint
 
-from form import LoginFrom
+from form import LoginFrom, RegisterForm
 from functools import wraps
 from project.models import User
-from project import  bcrypt
+from project import  bcrypt, db
+from flask_login import  login_user, login_required, logout_user
 
 ################
 #### config ####
@@ -20,15 +21,15 @@ users_blueprint = Blueprint(
 #### helper functions ####
 ##########################
 
-def login_required(test):
-    @wraps(test)
-    def wrap(*args, **kwargs):
-        if 'logged_in' in session:
-            return test(*args, **kwargs)
-        else:
-            flash('You need to login first.')
-            return redirect(url_for('users.login'))
-    return wrap
+# def login_required(test):
+#     @wraps(test)
+#     def wrap(*args, **kwargs):
+#         if 'logged_in' in session:
+#             return test(*args, **kwargs)
+#         else:
+#             flash('You need to login first.')
+#             return redirect(url_for('users.login'))
+#     return wrap
 
 
 ################
@@ -54,7 +55,9 @@ def login():
             #         or request.form['password'] != 'admin':
             #     error = 'Invalid Credentials. Please try again.'
             # else:
-                session['logged_in'] = True
+                #session['logged_in'] = True
+                login_user(user)
+
                 flash('You were logged in.')
                 return redirect(url_for('homes.home'))
             else:
@@ -65,6 +68,23 @@ def login():
 @users_blueprint.route('/logout')
 @login_required
 def logout():
-    session.pop('logged_in', None)
+    #session.pop('logged_in', None)
+    logout_user()
     flash('You were logged out.')
     return redirect(url_for('homes.welcome'))
+
+
+@users_blueprint.route('/register/', methods=['GET', 'POST'])
+def register():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        user = User(
+            name=form.username.data,
+            email=form.email.data,
+            password=form.password.data
+        )
+        db.session.add(user)
+        db.session.commit()
+        login_user(user)
+        return  redirect(url_for('homes.home'))
+    return render_template('register.html', form=form)

@@ -179,3 +179,16 @@ app.register_blueprint(home_blueprint)
 	pip install flask-wtf
 	
 #http://wtforms.simplecodes.com/docs/0.6/fields.html
+
+22. Unit Testing with flask-Testing.
+	pip install  flask-testing
+
+23. Managing Sessions with Flask-login
+# replace session login .
+	pip install flask-login
+
+24. Testing User Login and Logout
+	skip
+
+25. User Register 
+    # Add data to database.
