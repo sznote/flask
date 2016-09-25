@@ -1,4 +1,4 @@
-from app import db
+from project import db
 from models import BlogPost
 
 #create  the databbase ant th e db tables

@@ -86,3 +86,96 @@ os.urandom(24)
 17. Virtualenvwrapper
 18. Password Hashing
 19. blueprint
+20. blueprint Redux
+
+<project>__init__.py
+
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
+import os
+
+
+app = Flask(__name__)
+bcrypt =  Bcrypt(app)
+app.config.from_object(os.environ['APP_SETTINGS'])
+db = SQLAlchemy(app)
+
+
+from project.users.views import users_blueprint
+from project.home.views import home_blueprint
+
+bcrypt = Bcrypt(app)
+
+# register our blueprints
+app.register_blueprint(users_blueprint)
+app.register_blueprint(home_blueprint)
+
+
+<flask-intro>
+.
+├── config.py
+├── db_create.py
+├── db_create_users.py
+├── init.sh
+├── manage.py
+├── migrations
+│   ├── alembic.ini
+│   ├── env.py
+│   ├── README
+│   ├── script.py.mako
+│   └── versions
+│       ├── 1bc3202af6f8_.py
+│       └── 55f26e7864a0_.py
+├── posts.db
+├── project
+│   ├── __init__.py ****
+│   ├── home
+│   │   ├── __init__.py
+│   │   ├── templates
+│   │   │   ├── index.html
+│   │   │   └── welcome.html
+│   │   └── views.py
+│   ├── models.py
+│   ├── static
+│   │   ├── bootstrap.min.css
+│   │   ├── bootstrap.min.js
+│   │   ├── css
+│   │   │   ├── bootstrap.css
+│   │   │   ├── bootstrap.css.map
+│   │   │   ├── bootstrap.min.css
+│   │   │   ├── bootstrap.min.css.map
+│   │   │   ├── bootstrap-theme.css
+│   │   │   ├── bootstrap-theme.css.map
+│   │   │   ├── bootstrap-theme.min.css
+│   │   │   └── bootstrap-theme.min.css.map
+│   │   ├── fonts
+│   │   │   ├── glyphicons-halflings-regular.eot
+│   │   │   ├── glyphicons-halflings-regular.svg
+│   │   │   ├── glyphicons-halflings-regular.ttf
+│   │   │   ├── glyphicons-halflings-regular.woff
+│   │   │   └── glyphicons-halflings-regular.woff2
+│   │   └── js
+│   │       ├── bootstrap.js
+│   │       ├── bootstrap.min.js
+│   │       └── npm.js
+│   ├── templates
+│   │   ├── _index.html
+│   │   ├── _login.html
+│   │   ├── _welcome.html
+│   │   ├── base.html
+│   │   └── login.html
+│   └── users
+│       ├── __init__.py
+│       ├── templates
+│       │   └── login.html
+│       └── views.py
+├── run.py
+├── sample.db
+├── sql.py
+└── test.py
+
+21. User Authentication.
+	pip install flask-wtf
+	
+#http://wtforms.simplecodes.com/docs/0.6/fields.html
