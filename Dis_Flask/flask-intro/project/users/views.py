@@ -6,7 +6,7 @@ from form import LoginFrom, RegisterForm
 from functools import wraps
 from project.models import User
 from project import  bcrypt, db
-from flask_login import  login_user, login_required, logout_user
+from flask_login import  login_user, login_required, logout_user, current_user
 
 ################
 #### config ####
@@ -57,7 +57,10 @@ def login():
             # else:
                 #session['logged_in'] = True
                 login_user(user)
-
+                print current_user.id
+                print current_user.name
+                print current_user.get_id()
+                #print current_user
                 flash('You were logged in.')
                 return redirect(url_for('homes.home'))
             else:
