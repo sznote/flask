@@ -193,3 +193,5 @@ app.register_blueprint(home_blueprint)
 25. User Register 
     # Add data to database.
     https://realpython.com/blog/python/using-flask-login-for-user-management-with-flask/
+    
+26. Finalize Messaging System.

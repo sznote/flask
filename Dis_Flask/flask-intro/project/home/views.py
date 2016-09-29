@@ -1,9 +1,10 @@
 from project import app, db
 from project.models import  BlogPost
-from flask import Flask, flash, redirect, session, url_for, render_template, Blueprint
-from flask_login import login_required
+from flask import Flask, flash, redirect, session, url_for, render_template, Blueprint, request
+from flask_login import login_required, current_user
 
 from functools import wraps
+from forms import MessageForm
 
 
 home_blueprint = Blueprint(
@@ -32,18 +33,35 @@ home_blueprint = Blueprint(
 ################
 
 # use decorators to link the function to a url
-@home_blueprint.route('/')
+@home_blueprint.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
     # return "Hello, World!"  # return a string
-
+    error = None
+    print current_user.id
 
     context =   { 'title': "Login Page",
                   'creator': "Sahai Srichock",
                 }
+    #print "hello home"
+    form =  MessageForm(request.form)
 
-    posts = db.session.query(BlogPost).all()
-    return render_template('index.html', posts=posts, context=context)  # render a template
+    if form.validate_on_submit():
+        new_message = BlogPost(
+            form.title.data,
+            form.description.data,
+            current_user.id
+            )
+        db.session.add(new_message)
+        db.session.commit()
+        flash('New entry was successfully posted. Thank.')
+        return redirect(url_for('homes.home'))
+        #return render_template(
+        #'index.html', posts=posts, error=error, form=form, context=context)
+    else:
+        posts = db.session.query(BlogPost).all()
+        return render_template(
+            'index.html', posts=posts, error=error, form=form, context=context)  # render a template
 
 
 @home_blueprint.route('/welcome')

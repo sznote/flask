@@ -4,6 +4,21 @@
 	<div class="container">
 	  <h1>Welcome to Flask!</h2>
 	  <h4> Login success </h4>
+
+	  <h3>  Add Post! </h3>
+
+  	{% from "__formhelpers.html" import render_field %}
+
+
+	<form action='' method="POST">
+		{{ form.csrf_token  }}
+		<dl>
+		 	{{ render_field(form.title) }}
+		 	{{ render_field(form.description) }}
+		</dl>
+		<input class="btn btn-success" type="submit" value="submit">
+	</form>
+
 	  <br>
 	  <p>Click <a href="/logout">here</a> To logout.</p>
 	  <br><br>
@@ -17,4 +32,5 @@
 	  {{ context.title }}
 	  {{ context.creator }}
 	</div>
+
 {% endblock %}
