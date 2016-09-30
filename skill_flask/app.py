@@ -1,6 +1,10 @@
-from flask import Flask, render_template, url_for, redirect, request
+from flask import Flask, render_template, url_for, redirect, request, flash
+
+from form import registerForm
 
 app = Flask(__name__)
+
+app.config['SECRET_KEY'] = "Hello saza"
 
 # @app.route('/')
 # def  show_url_for():
@@ -10,6 +14,17 @@ app = Flask(__name__)
 # @app.route('/profile/<username>')
 # def show_user_profile(username):
 # 	return "User: %s" % username
+
+@app.route('/register',methods=['GET', 'POST'])
+def register():
+	form = registerForm(request.form)
+	if form.validate_on_submit():
+		return redirect('/success')
+	return render_template('user/register.html', form=form)
+
+@app.route('/success')
+def success():
+	return "Author registered!"
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
