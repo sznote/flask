@@ -1,0 +1,23 @@
+<html>
+{% from "_formhelpers.html" import render_field %}
+ <h1> Login </h1>
+
+<form method="post" action="" role="form">
+ 
+ {{ form.hidden_tag() }}
+
+  <dt>
+    {{ render_field(form.username,  class="form-control" ,placeholder="username" )  }}
+
+    {{ render_field(form.password,  class="form-control",placeholder="password" )}}
+   
+  </dl>
+
+{% if error %}
+  {{ error }}
+{% endif %}
+
+<p><input type="submit" value="Register">
+
+</form>
+</html>
