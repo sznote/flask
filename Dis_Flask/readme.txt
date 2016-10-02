@@ -193,5 +193,32 @@ app.register_blueprint(home_blueprint)
 25. User Register 
     # Add data to database.
     https://realpython.com/blog/python/using-flask-login-for-user-management-with-flask/
+
+	post.author.name
+
+	[blogPost (auther_id)]		     [ (id)User ]
+	              ^|_________________________|
+					    backref='author'
+			    
+
+	#blogPost
+	author_id = db.Column(db.Integer, ForeignKey('users.id'))
+
+	#User
+	id, name, email, password
+	posts = relationship("BlogPost", backref="author")
+
+
+
+	 posts = db.session.query(BlogPost).all()
+
+	for post in posts
+		post.author.name
+		post.author.id
+		post.author.email
+		post.author.password
+
+
     
 26. Finalize Messaging System.
+
