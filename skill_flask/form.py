@@ -1,7 +1,8 @@
 from flask_wtf import Form
-from wtforms import StringField, TextField, PasswordField
+from wtforms import StringField, TextField, PasswordField, TextAreaField
 from wtforms.validators import Email,  DataRequired, Length, EqualTo, DataRequired
-
+from wtforms.ext.sqlalchemy.fields import QuerySelectField
+from models import Category
 
 class registerForm(Form):
     fullname = StringField("Full name", validators=
@@ -50,8 +51,19 @@ class LoginForm(Form):
     password = PasswordField("Password", 
         validators=[DataRequired(), Length(min=4,max=25) ])
 
+
+
+def categories():
+    return Category.query.all()
+
 class PostForm(Form):
     title  = StringField("Title",
         validators=[DataRequired(), Length(min=4,max=200)]
         )
     
+    body = TextAreaField('Content', validators=[DataRequired()])
+    category = QuerySelectField('Category', query_factory=categories, allow_blank=True)
+    new_category = StringField('New Category')
+    # slug = 
+    # publish_date = 
+    # live = 

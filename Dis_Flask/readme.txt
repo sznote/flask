@@ -196,10 +196,14 @@ app.register_blueprint(home_blueprint)
 
 	post.author.name
 
+
+									 [ (id)User ]
+									 [ (id)User ]
 	[blogPost (auther_id)]		     [ (id)User ]
 	              ^|_________________________|
 					    backref='author'
 			    
+			    blogpost.backref.all()
 
 	#blogPost
 	author_id = db.Column(db.Integer, ForeignKey('users.id'))

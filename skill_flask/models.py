@@ -1,5 +1,11 @@
-from  app import db
-from datetime import datetime
+# from app import  bcrypt
+# from datetime import datetime
+# from flask_sqlalchemy import SQLAlchemy
+
+from init import db, bcrypt
+from sqlalchemy import ForeignKey 
+from sqlalchemy.orm import  relationship
+
 
 class Blog(db.Model):
 
@@ -30,7 +36,7 @@ class  User(db.Model):
         self.fullname = fullname
         self.email = email
         self.username = username
-        self.password = password
+        self.password = self.password = bcrypt.generate_password_hash(password)
         self.is_author = is_author
 
     def __repr__(self):

@@ -1,21 +1,10 @@
+from init import app, bcrypt, db
 from flask import Flask, render_template, url_for, redirect, request, flash, session, abort
-from flask_bcrypt import Bcrypt
-from form import registerForm, SetupForm, LoginForm
+from form import registerForm, SetupForm, LoginForm, PostForm
 from functools import wraps
-from models import db
+from models import Blog, User, Post
 
-
-app = Flask(__name__)
-
-app.config['SECRET_KEY'] = "Hello saza"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-
-bcrypt  = Bcrypt(app)
-db.init_app()
-db.app = app
-
+#from models import Blog, User, Category, Post
 #from form import registerForm, SetupForm, LoginForm, PostForm
 
 
@@ -183,12 +172,11 @@ def login2():
             <input type="submit" formnovalidate  value="submit" /> \
             <button type="submit"  > Summit </button> </p> </form>'
 
-
-# @app.route('/post', methods=['GET', 'POST'])
-# @login_required
-# def post():
-#     form = PostForm(request.form)
-#     return render_template('post.html', form=form)
+@app.route('/post', methods=['GET', 'POST'])
+@login_required
+def post():
+    form = PostForm(request.form)
+    return render_template('post.html', form=form)
     
 if __name__ == '__main__':
     app.run(debug=True)

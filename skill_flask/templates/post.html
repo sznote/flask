@@ -1,0 +1,28 @@
+<!doctype html>
+
+<html>
+<title> Blog Admin </title>
+
+<body>
+
+<h1> Blog setup  </h1>
+
+{% from "_formhelpers.html" import render_field %}
+
+<form method="post" action="" role="form">
+ 
+ {{ form.hidden_tag() }}
+    <h4> Post </h4>
+
+    <dt>
+    {{ render_field(form.title,  class="form-control" ,placeholder="blogname" )  }}
+  
+    {{ render_field(form.body , class="form-control", placeholder="fullname") }}
+    {{ render_field(form.category,  class="form-control", placeholder="email" ) }}
+     {{ render_field(form.new_category , class="form-control", placeholder="name") }}
+     
+    </dl>
+    <p><input type="submit" value="Register"></p>
+</form>
+</body>
+</html>
