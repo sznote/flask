@@ -20,7 +20,9 @@ db =  SQLAlchemy(app)
 import views
 
 uploaded_images  = UploadSet('images', IMAGES)
-from models import User, Category, Post
+configure_uploads(app, uploaded_images)
+
+#from models import User
 # @app.route('/')
 # def home():
 #     return "Hello Word!!"
