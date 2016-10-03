@@ -5,6 +5,7 @@
 from init import db, bcrypt
 from sqlalchemy import ForeignKey 
 from sqlalchemy.orm import  relationship
+from datetime import datetime
 
 
 class Blog(db.Model):
@@ -82,6 +83,7 @@ class Category(db.Model):
         self.name = name
 
     def __repr__(self):
-        return '<Category %r>' % self.name
+        #return '<Category %r>' % self.name
+        return self.name
 
 

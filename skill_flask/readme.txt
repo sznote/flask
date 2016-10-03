@@ -32,6 +32,8 @@ u'saza_thi@hotmail.com'
 1
 >>>
 
+14..:  python-slugify
+
 
 14
 from wtforms.ext.sqlalchemy import QuerySelectField

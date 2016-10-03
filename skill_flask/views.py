@@ -2,7 +2,8 @@ from init import app, bcrypt, db
 from flask import Flask, render_template, url_for, redirect, request, flash, session, abort
 from form import registerForm, SetupForm, LoginForm, PostForm
 from functools import wraps
-from models import Blog, User, Post
+from models import Blog, User, Post, Category
+from slugify import slugify
 
 #from models import Blog, User, Category, Post
 #from form import registerForm, SetupForm, LoginForm, PostForm
@@ -173,9 +174,26 @@ def login2():
             <button type="submit"  > Summit </button> </p> </form>'
 
 @app.route('/post', methods=['GET', 'POST'])
-@login_required
+@author_required
 def post():
     form = PostForm(request.form)
+    if form.validate_on_submit():
+        if  form.new_category.data :
+            new_category = Category(form.new_category.data)
+            db.session.add(new_category)
+            db.session.flash()
+            category = new_category
+        else:
+            category = form.category.data
+        blog = Blog.query.first()
+        author = User.query.filter_by(username=session['username']).first()
+        title = form.title.data
+        body = form.body.data
+        slug = slugify(title)
+        post = Post(blog, author, title, body, category, slug)
+        db.session.add(post)
+        db.session.commit()
+        return redirect(url_for('admin'))
     return render_template('post.html', form=form)
     
 if __name__ == '__main__':
