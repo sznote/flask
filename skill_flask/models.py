@@ -2,7 +2,7 @@
 # from datetime import datetime
 # from flask_sqlalchemy import SQLAlchemy
 
-from init import db, bcrypt
+from init import db, bcrypt, uploaded_images
 from sqlalchemy import ForeignKey 
 from sqlalchemy.orm import  relationship
 from datetime import datetime
@@ -50,6 +50,7 @@ class Post(db.Model):
     user_id =  db.Column(db.Integer, db.ForeignKey('users.id'))
     title = db.Column(db.String(30))
     body = db.Column(db.Text)
+    image = db.Column(db.String(255))
     slug = db.Column(db.String(256), unique=True)
     publish_date = db.Column(db.DateTime())
     live = db.Column(db.Boolean)
@@ -57,6 +58,13 @@ class Post(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     category = db.relationship('Category', 
         backref=db.backref('posts', lazy='dynamic') )
+
+    @property
+    def imgsrc(self):
+        return uploaded_images.url(self.images)
+
+   
+    
 
     def __init__  (self, blog, author, title, body, category, slug, publish_date=None, live=True):
         self.blog_id = blog.id

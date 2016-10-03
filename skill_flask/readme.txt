@@ -37,3 +37,7 @@ u'saza_thi@hotmail.com'
 
 14
 from wtforms.ext.sqlalchemy import QuerySelectField
+
+15
+  flask-markdown
+  flask-uploads
