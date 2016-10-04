@@ -42,4 +42,15 @@ from wtforms.ext.sqlalchemy import QuerySelectField
   flask-markdown
   flask-uploads
 
+ from models import  *
+  post = Post.query.order_by(Post.publish_date.desc()).first()
+  post.image = '/static/item.jpg'
+  db.session.commit()
+  
+
+***   - Debug
+  import pdb; pdb.set_trace()  
+      + n next
+      + c continue
+
 16.  python manager.py upgrade

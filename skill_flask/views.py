@@ -178,33 +178,37 @@ def login2():
 def post():
     form = PostForm(request.form)
     
-    image = request.files.get('image')
-    print image
-    #image =form.i
-    filename = None
+    if request.method == "POST":
+        import pdb; pdb.set_trace() 
+        test = request.files['image']
+        image = request.files.get('image')
+        imagedata = form.image.data
+        #print image
+        #image =form.i
+        filename = None
 
-    try:
-        filename = uploaded_image.get(image)
-    except:
-        flash("The image was not uploaded")
+        try:
+            filename = uploaded_images.get(image)
+        except:
+            flash("The image was not uploaded")
 
-    if form.validate_on_submit():
-        if  form.new_category.data :
-            new_category = Category(form.new_category.data)
-            db.session.add(new_category)
-            db.session.flash()
-            category = new_category
-        else:
-            category = form.category.data
-        blog = Blog.query.first()
-        author = User.query.filter_by(username=session['username']).first()
-        title = form.title.data
-        body = form.body.data
-        slug = slugify(title)
-        post = Post(blog, author, title, body, category, slug, filename)
-        db.session.add(post)
-        db.session.commit()
-        return redirect(url_for('admin'))
+        if form.validate_on_submit():
+            if  form.new_category.data :
+                new_category = Category(form.new_category.data)
+                db.session.add(new_category)
+                db.session.flash()
+                category = new_category
+            else:
+                category = form.category.data
+            blog = Blog.query.first()
+            author = User.query.filter_by(username=session['username']).first()
+            title = form.title.data
+            body = form.body.data
+            slug = slugify(title)
+            post = Post(blog, author, title, body, category, slug, filename)
+            db.session.add(post)
+            db.session.commit()
+            return redirect(url_for('admin'))
     return render_template('post.html', form=form)
     
 if __name__ == '__main__':
