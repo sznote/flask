@@ -66,7 +66,8 @@ class Post(db.Model):
    
     
 
-    def __init__  (self, blog, author, title, body, category, slug, publish_date=None, live=True):
+    def __init__  (self, blog, author, title, body, category, slug, image=None,  publish_date=None, live=True):
+
         self.blog_id = blog.id
         self.user_id = author.id
         self.title =  title
@@ -75,6 +76,7 @@ class Post(db.Model):
         self.publish_date = publish_date
         self.live = live
         self.slug = slug
+        self.imgae = image
         if publish_date is None:
             self.publish_date = datetime.utcnow()
 

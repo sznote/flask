@@ -9,12 +9,13 @@
 
 {% from "_formhelpers.html" import render_field %}
 
-<form method="post" action="" role="form">
+<form method="post" action="" role="form" enctype="multipart/form-data">
  
  {{ form.hidden_tag() }}
     <h4> Post </h4>
 
     <dt>
+    {{ render_field(form.image, class="form-control") }}
     {{ render_field(form.title,  class="form-control" ,placeholder="blogname" )  }} 
     {{ render_field(form.body , class="form-control", placeholder="fullname", rows=10) }}
     {{ render_field(form.category,  class="form-control", placeholder="email" ) }}

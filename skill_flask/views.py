@@ -1,4 +1,4 @@
-from init import app, bcrypt, db
+from init import app, bcrypt, db, uploaded_images
 from flask import Flask, render_template, url_for, redirect, request, flash, session, abort
 from form import registerForm, SetupForm, LoginForm, PostForm
 from functools import wraps
@@ -177,6 +177,17 @@ def login2():
 @author_required
 def post():
     form = PostForm(request.form)
+    
+    image = request.files.get('image')
+    print image
+    #image =form.i
+    filename = None
+
+    try:
+        filename = uploaded_image.get(image)
+    except:
+        flash("The image was not uploaded")
+
     if form.validate_on_submit():
         if  form.new_category.data :
             new_category = Category(form.new_category.data)
@@ -190,7 +201,7 @@ def post():
         title = form.title.data
         body = form.body.data
         slug = slugify(title)
-        post = Post(blog, author, title, body, category, slug)
+        post = Post(blog, author, title, body, category, slug, filename)
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('admin'))

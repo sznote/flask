@@ -1,6 +1,7 @@
 from flask_wtf import Form
 from wtforms import StringField, TextField, PasswordField, TextAreaField
-from wtforms.validators import Email,  DataRequired, Length, EqualTo, DataRequired
+from wtforms.validators import Email,  DataRequired, Length, EqualTo, DataRequired 
+from flask_wtf.file import FileField, FileAllowed
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from models import Category
 
@@ -57,6 +58,9 @@ def categories():
     return Category.query.all()
 
 class PostForm(Form):
+    image =  FileField("Image", validators=[ 
+            FileAllowed(['jpg', 'png', 'gif'],  'Image only!')
+            ])
     title  = StringField("Title",
         validators=[DataRequired(), Length(min=4,max=200)]
         )
