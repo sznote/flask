@@ -17,10 +17,14 @@ app.config['UPLOADED_IMAGES_URL'] = '/static/images'
 bcrypt  = Bcrypt(app)
 db =  SQLAlchemy(app)
 
+
+
+uploaded_images = UploadSet('images', IMAGES)
+configure_uploads(app, uploaded_images)
+
 import views
 
-uploaded_images  = UploadSet('images', IMAGES)
-configure_uploads(app, uploaded_images)
+
 
 #from models import User
 # @app.route('/')
