@@ -2,6 +2,8 @@ from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 from flask_uploads import UploadSet, configure_uploads, IMAGES
+from flaskext.markdown import Markdown
+
 
 
 
@@ -17,6 +19,8 @@ app.config['UPLOADED_IMAGES_URL'] = '/static/images'
 bcrypt  = Bcrypt(app)
 db =  SQLAlchemy(app)
 
+# markdown.
+md =  Markdown(app, extenstions=['fenced_code', 'table'])
 
 
 uploaded_images = UploadSet('images', IMAGES)

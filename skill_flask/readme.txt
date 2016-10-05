@@ -60,3 +60,7 @@ AttributeError: "'UploadSet' object has no attribute 'get'"
 
 
 16.  python manager.py upgrade
+
+--
+50 markdown
+ pip install Flask-Markdown
