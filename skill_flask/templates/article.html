@@ -3,16 +3,22 @@
 <html>
 <title> {{ post.title }}  </title>
 
+<style>
+.container { width:600px; overflow:hidden }
+.cube { width:150px; height:150px; float:left }
+</style>
+
+
 <body>
+<div class="container">
 
-<h3>{{ post.title }}   </h3>
-
+	<h3>{{ post.title }}   </h3>
     {{ post.body| markdown }}
 
     <hr />
     <div> 
-    {{ post.author.fullname }}  on  {{ post.publish_date.strftime('%Y-%m-%d')}}
+    	{{ post.author.fullname }}  on  {{ post.publish_date.strftime('%Y-%m-%d')}}
     </div>
-</form>
+</div>
 </body>
 </html>
