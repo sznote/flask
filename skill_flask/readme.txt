@@ -53,4 +53,10 @@ from wtforms.ext.sqlalchemy import QuerySelectField
       + n next
       + c continue
 
+(Pdb) n
+AttributeError: "'UploadSet' object has no attribute 'get'"
+> /cygdrive/d/mycode/flask/skill_flask/views.py(191)post()
+-> filename = uploaded_images.get(image)
+
+
 16.  python manager.py upgrade

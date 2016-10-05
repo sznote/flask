@@ -76,7 +76,7 @@ class Post(db.Model):
         self.publish_date = publish_date
         self.live = live
         self.slug = slug
-        self.imgae = image
+        self.image = image
         if publish_date is None:
             self.publish_date = datetime.utcnow()
 

@@ -179,7 +179,7 @@ def post():
     form = PostForm(request.form)
     
     if request.method == "POST":
-        import pdb; pdb.set_trace() 
+        #import pdb; pdb.set_trace() 
         test = request.files['image']
         image = request.files.get('image')
         imagedata = form.image.data
@@ -188,7 +188,7 @@ def post():
         filename = None
 
         try:
-            filename = uploaded_images.get(image)
+            filename = uploaded_images.save(image, folder='100')
         except:
             flash("The image was not uploaded")
 
