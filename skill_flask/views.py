@@ -8,6 +8,7 @@ from slugify import slugify
 #from models import Blog, User, Category, Post
 #from form import registerForm, SetupForm, LoginForm, PostForm
 
+POSTS_PER_PAGE = 5
 
 def login_required(f):
     @wraps(f)
@@ -38,24 +39,39 @@ def author_required(f):
 # def show_user_profile(username):
 #   return "User: %s" % username
 
+@app.route('/')
+@app.route('/index')
+@app.route('/index/<int:page>')
+def index(page=1):
+    blog =  Blog.query.first()
+    posts = Post.query.order_by(Post.publish_date.desc()).paginate(page, POSTS_PER_PAGE, False)
+    return render_template('index.html', blog=blog, posts=posts)
+
+@app.route('/admin')
+@app.route('/admin/<int:page>')
+@author_required
+def admin(page=1):
+    post = Post.query.order_by(Post.publish_date.desc()).paginate(page, POSTS_PER_PAGE, False)
+    #if 'username' in session:
+    #blogs = Blog.query.count()
+    #if blogs  == 0:
+    #    return redirect(url_for('setup'))
+    return render_template('admin.html', posts=post)
+
+
 @app.route('/logout')
 @login_required
 def logout():
     session.pop('logged_in',None)
+    session.pop('username',None)
+    session.pop('is_author', None)
     return redirect(url_for('login'))
 
 @app.route('/blog', methods=['GET', 'POST'])
 def blog():
     return  render_template("admin.html")
 
-@app.route('/admin')
-@author_required
-def admin():
-    #if 'username' in session:
-    #blogs = Blog.query.count()
-    #if blogs  == 0:
-    #    return redirect(url_for('setup'))
-    return render_template('admin.html')
+
 
 
 @app.route('/setup',methods=['GET','POST'])

@@ -1,0 +1,47 @@
+<!doctype html>
+
+
+<html>
+<title> {{ blog.name }} </title>
+
+<body>
+
+<h1>  {{ blog.name }} </h1>
+
+<div>
+    {%  for post in posts.items %}
+    <h4> 
+    <a href="{{ url_for('article', slug=post.slug) }}">
+        {{ post.title }} </a></h4>
+
+    <div>
+        Posted by {{ post.author.fullname  }} on  {{ post.publish_date.strftime('%Y-%m-%d')}} in  {{ post.category.name }}
+    </div>
+
+    {% endfor %}
+</div>
+
+    <br>
+    <br>
+      <div class="post-paginate">
+      {%  if posts.has_prev %} 
+        <a href = "{{ url_for('index', page=posts.prev_num ) }}" > &lt;&lt; Older Posts </a>
+      {% else %}
+       &lt;&lt; Older Posts
+      {% endif %}
+
+      {%  if posts.has_next %}
+        <a href="{{ url_for('index', page=posts.next_num) }}">  &gt;&gt; Newer Posts </a>
+      {%else %}
+        Newer Posts
+      {%endif%}
+
+      </div>
+
+
+      {% from "_paginationhelper.html" import render_pagination %}
+      {{ render_pagination(posts, 'index') }}
+
+
+</body>
+</html>

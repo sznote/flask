@@ -17,5 +17,24 @@
     {% endif %}
 {% endwith %}
 
+<p> Welcome, {{ session['username'] }} - <a href= "{{ url_for('logout') }}"> logout </a></p>
+
+<div>
+
+ {%  for post in posts.items %}
+ <h4> 
+ <a href="{{ url_for('article', slug=post.slug) }}">
+ 	{{ post.title }} </a></h4>
+
+ <div>
+  Posted by {{ post.author.fullname  }} on  {{ post.publish_date.strftime('%Y-%m-%d')}} in  {{ post.category.name }}
+ </div>
+
+ {% endfor %}
+</div>
+
+ {% from "_paginationhelper.html" import render_pagination %}
+      {{ render_pagination(posts, 'admin') }}
+
 </body>
 </html>
