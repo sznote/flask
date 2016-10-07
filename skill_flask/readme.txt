@@ -64,3 +64,8 @@ AttributeError: "'UploadSet' object has no attribute 'get'"
 --
 50 markdown
  pip install Flask-Markdown
+
+
+52.  
+	post = Post.query.order_by(Post.publish_date.desc()).paginate(page, POSTS_PER_PAGE, False) 
+	{{ post.body[:200] }}
