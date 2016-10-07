@@ -13,7 +13,7 @@ app.config['SECRET_KEY'] = "Hello saza"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOADED_IMAGES_DEST'] = '/mycode/flask/skill_flask/static/images'
-app.config['UPLOADED_IMAGES_URL'] = '/static/images'
+app.config['UPLOADED_IMAGES_URL'] = '/static/images/'
 app.config['DEBUG'] = True
 
 

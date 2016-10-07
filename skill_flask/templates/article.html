@@ -12,6 +12,10 @@
 <body>
 <div class="container">
 
+	{% if post.image %}
+		<img src="{{ post.imgsrc }}" height="300px" class="img-rounded"  />
+	{% endif %}
+
 	<h3>{{ post.title }}   </h3>
     {{ post.body| markdown }}
 

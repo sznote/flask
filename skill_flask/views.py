@@ -230,6 +230,9 @@ def post():
 @app.route('/article/<slug>')
 def article(slug):
     post = Post.query.filter_by(slug=slug).first_or_404()
+    #print post.image
+    #print  post.imgsrc
+    #print  uploaded_images.url(post.image)
     return  render_template('article.html', post=post)
 
 

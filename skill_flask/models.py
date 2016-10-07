@@ -61,10 +61,7 @@ class Post(db.Model):
 
     @property
     def imgsrc(self):
-        return uploaded_images.url(self.images)
-
-   
-    
+        return uploaded_images.url(self.image)
 
     def __init__  (self, blog, author, title, body, category, slug, image=None,  publish_date=None, live=True):
 
