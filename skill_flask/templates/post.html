@@ -9,7 +9,12 @@
 
 {% from "_formhelpers.html" import render_field %}
 
-<form method="post" action="" role="form" enctype="multipart/form-data">
+{% if action=="new" %}
+	<form method="post" action="" role="form" enctype="multipart/form-data">
+{% else %}
+	<form method="post" action="{{ url_for("edit", post_id=post.id) }} " role="form" enctype="multipart/form-data">
+{% endif %}
+
  
  {{ form.hidden_tag() }}
     <h4> Post </h4>

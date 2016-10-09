@@ -225,7 +225,7 @@ def post():
             db.session.add(post)
             db.session.commit()
             return redirect(url_for('article', slug=slug ))
-    return render_template('post.html', form=form)
+    return render_template('post.html', form=form, action="new")
     
 @app.route('/article/<slug>')
 def article(slug):
@@ -235,6 +235,32 @@ def article(slug):
     #print  uploaded_images.url(post.image)
     return  render_template('article.html', post=post)
 
+@app.route('/edit/<int:post_id>')
+def edit(post_id):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    form = PostForm(request.form, obj=post)
+    if form.validate_on_submit():
+        original_image = post.image
+        form.poplulations(post)
+        if  form.image.has_file():
+            image = request.files.get('image')
+            try:
+                filename = uploaded_images.save(image)
+            except:
+                flash("")
+        else:
+            post.image = original_image
+
+        if post.new_category.data:
+            category = Category(form.new_category.data)
+            db.session.add(category)
+            db.session.flash()
+            post.category =  category
+        db.session.commit()
+
+        return  redirect(url_for(article, slug=post.slug))
+
+    return render_template('post.html', form=form, action="edit")
 
 if __name__ == '__main__':
     app.run(debug=True)
