@@ -235,32 +235,36 @@ def article(slug):
     #print  uploaded_images.url(post.image)
     return  render_template('article.html', post=post)
 
-@app.route('/edit/<int:post_id>')
+@app.route('/edit/<int:post_id>',methods=['GET', 'POST'])
 def edit(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
-    form = PostForm(request.form, obj=post)
+    form = PostForm(obj=post)
     if form.validate_on_submit():
         original_image = post.image
-        form.poplulations(post)
+        #import pdb; pdb.set_trace()
+        form.populate_obj(post)
         if  form.image.has_file():
             image = request.files.get('image')
+            
             try:
                 filename = uploaded_images.save(image)
             except:
-                flash("")
+                flash("The image was not uploaded")
+            if filename:
+                post.image = filename
         else:
             post.image = original_image
 
-        if post.new_category.data:
-            category = Category(form.new_category.data)
-            db.session.add(category)
+        if form.new_category.data:
+            new_category = Category(form.new_category.data)
+            db.session.add(new_category)
             db.session.flash()
-            post.category =  category
+            post.category =  new_category
         db.session.commit()
 
-        return  redirect(url_for(article, slug=post.slug))
+        return  redirect(url_for('article', slug=post.slug))
 
-    return render_template('post.html', form=form, action="edit")
+    return render_template('post.html', form=form, post=post)
 
 if __name__ == '__main__':
     app.run(debug=True)
