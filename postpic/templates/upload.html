@@ -1,0 +1,21 @@
+<html>
+<head>
+<title> python </title>
+</head>
+<body>
+	<br>
+	<br>
+	<br>
+	{% from "_formhelpers.html" import render_field %}
+	<form method="post" action="{{ url_for('index') }}">
+		{{ form.csrf_token }}
+	  	<div>
+	    	{{ render_field(form.image) }}
+	    
+		<div>  
+	  	<br>
+	  	<p><input type="submit" value="Add">
+	  	 -- <input type="reset" value="Clear"></p>
+	</form>
+</body>
+</html>
