@@ -266,5 +266,12 @@ def edit(post_id):
 
     return render_template('post.html', form=form, post=post)
 
+@app.route('/delete/<int:post_id>')
+def delete(post_id):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    post.live = False
+    db.session.commit()
+    return redirect(url_for('index'))
+    
 if __name__ == '__main__':
     app.run(debug=True)
