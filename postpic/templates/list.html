@@ -1,5 +1,14 @@
 {% for list in data %}
 	<p>
-	{{ list.id }} :: {{  list.image }}
+	{{ list.id }} :: 
+		{% if list.link %}
+			<a href="{{ url_for('show', path_id=list.link ) }} "> {{  list.image }} </a>
+		{% else %}
+			<a href="{{ url_for('show', path_id="aabbccdd" ) }} "> {{  list.image }} </a>
+		{% endif %}
+
+		
+		
+
 	</p>
 {% endfor %}

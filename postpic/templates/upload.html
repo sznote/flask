@@ -1,21 +1,35 @@
 <html>
 <head>
 <title> python </title>
+{% include 'script.html' %}
 </head>
 <body>
-	<br>
-	<br>
-	<br>
-	{% from "_formhelpers.html" import render_field %}
+
+
+<script src='{{ url_for("static", filename="js/fileinput.js") }}'></script>
+<script src='{{ url_for("static", filename="themes/fa/theme.js") }}'></script>
+ 
+
 	<form method="post" action="{{ url_for('index') }}" enctype="multipart/form-data">
-		{{ form.csrf_token }}
-	  	<div>
-	    	{{ render_field(form.image) }}
-	    
-		<div>  
-	  	<br>
-	  	<p><input type="submit" value="Add">
-	  	 -- <input type="reset" value="Clear"></p>
-	</form>
+		{{ form.csrf_token }}	
+
+	<label class="control-label">Select File</label>
+	<input id="image" name="image" type="file" multiple class="file-loading"/>
+
+	<script>
+		$("#image").fileinput({
+		    theme: "fa",
+		    uploadUrl: "{{url_for('getpic') }}"
+		});
+
+
+		
+	</script>
+
+</form>
+
 </body>
 </html>
+http://plugins.krajee.com/file-input-ajax-demo/1
+https://github.com/kartik-v/bootstrap-fileinput
+http://stackoverflow.com/questions/18334717/how-to-upload-a-file-using-an-ajax-call-in-flask

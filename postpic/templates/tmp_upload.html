@@ -1,0 +1,78 @@
+<html>
+<head>
+<title> python </title>
+{% include 'script.html' %}
+</head>
+<body>
+	<br>
+	<br>
+	<br>
+
+<script src="/path/to/js/fileinput.js"></script>
+<script src="/path/to/themes/fa/theme.js"></script>
+ 
+	<label class="control-label">Select File</label>
+	<input id="image" name="image" type="file" multiple class="file-loading">
+	<script>
+		$("#image").fileinput({
+		    theme: "fa",
+		    uploadUrl: "{{url_for('index') }}"
+		});
+</script>
+<!--
+	{% from "_formhelpers.html" import render_field %}
+	<form method="post" action="{{ url_for('index') }}" enctype="multipart/form-data">
+		{{ form.csrf_token }}
+	  	<div>
+	  	
+	    	{{ render_field(form.image, class="form-control" ) }}
+	    	
+	 		<input id="input-id" type="file" class="file" data-preview-file-type="text" >   
+		<div>  
+	  	<br>
+
+	  	
+	  	<p><input type="submit" value="Add">
+	  	 -- <input type="reset" value="Clear"></p>
+
+
+		<label class="control-label">Upload File From Folder</label>
+		<input id="input-folder-1" type="file" class="file-loading" webkitdirectory>
+		<script>
+			$(document).on('ready', function() {
+			$("#input-folder-1").fileinput({
+				browseLabel: 'Select Folder...'
+				});
+			});
+		</script>
+
+		<script src="/path/to/js/fileinput.js"></script>
+
+<script src='{{ url_for("static", filename="themes/fa/theme.js" ) }}'></script>
+ 
+	<label class="control-label">Select File</label>
+	<input id="input-fa" name="inputfa[]" type="file" multiple class="file-loading">
+	<script>
+	$("#input-fa").fileinput({
+	    theme: "fa",
+	    uploadUrl: "/"
+	});
+</script>
+-->
+<!--
+<input id="image" name="image" type="file" multiple class="file-loading">
+<script>
+$("#image").fileinput({
+    uploadUrl: "{{ url_for('index') }}", // server upload action
+    uploadAsync: true,
+    maxFileCount: 1
+});
+
+</script>
+
+</form>
+-->
+</body>
+</html>
+http://plugins.krajee.com/file-input-ajax-demo/1
+https://github.com/kartik-v/bootstrap-fileinput

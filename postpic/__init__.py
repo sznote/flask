@@ -16,6 +16,7 @@ app.config['DEBUG'] = True
 
 
 
+
 upload_images = UploadSet('images', IMAGES )
 configure_uploads(app, upload_images)
 
