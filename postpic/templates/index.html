@@ -1,6 +1,42 @@
 <html>
 <head>
 <title> python </title>
+{% include 'script.html' %}
+
+<style>
+$custom-file-text: (
+  placeholder: (
+    en: "Choose file...",
+    es: "Seleccionar archivo..."
+  ),
+  button-label: (
+    en: "Browse",
+    es: "Navegar"
+  )
+);
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+</style>
+
 </head>
 <body>
 	<br>
@@ -8,14 +44,30 @@
 	<br>
 	{% from "_formhelpers.html" import render_field %}
 	<form method="post" action="{{ url_for('index') }}" enctype="multipart/form-data">
-		{{ form.csrf_token }}
+		{{ form.csrf_token  }}
 	  	<div>
-	    	{{ render_field(form.image) }}
-	    
+
+	  	<label class="custom-file">
+	  	{{ render_field(form.image, class="custom-file-input") }}
+  		 <input type="file" id="file"class="form-control"> 
+  		<span class="custom-file-control"></span>
+		</label>
+	    	
+	    <span class="btn btn-default btn-file">
+    Browse <input type="file" class="form-control">
+</span>
+
+
 		<div>  
 	  	<br>
 	  	<p><input type="submit" value="Add">
 	  	 -- <input type="reset" value="Clear"></p>
 	</form>
+
+
+	<label class="btn btn-primary" for="my-file-selector">
+    <input id="my-file-selector" type="file" style="display:none;" class="form-control" >
+    Button Text Here
+</label>
 </body>
 </html>
