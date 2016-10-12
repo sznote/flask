@@ -1,8 +1,13 @@
 from __init__ import app, db, upload_images
-from flask import url_for, render_template, request, flash, redirect
+from flask import url_for, render_template, request, flash, redirect, jsonify
 from models import PostPic
 from forms import ImageForm
 from random_str import random_generator
+
+@app.route('/json/')
+def tstjson():
+    return jsonify(name='sahai',id=10,email='iam.saza@gmail.com', keyerr=[0,1,3,4])
+
 
 #@app.route('/up/', methods=['POST', 'GET'])
 @app.route('/up/')
@@ -39,8 +44,10 @@ def getpic():
                 db.session.add(postpic)
                 db.session.commit()
                 #return redirect(url_for('show', path_id=postpic.link))
-                return "127.0.0.1:5000/showpic/%s" % postpic.link
-    return "The image wasn't uploaded"
+                #url_link = "127.0.0.1:5000/showpic/%s" % postpic.link
+                return  jsonify( error = "127.0.0.1:5000/showpic/%s" % postpic.link )
+                #return jsonify(success="hello")
+    return jsonify(error="The image wasn't uploaded",  errorkeys = [0, 1, 3, 4])
 
     #return render_template('index.html', form=form, error=error)
 
@@ -84,7 +91,7 @@ def show(path_id):
     #print random_generator()
     return render_template('picshow.html', postpic=postpic, pic_url=pic_url )
 
-@app.route('/list')
-def list():
-    data = PostPic.query.order_by(PostPic.id)
-    return render_template('list.html', data=data )
+# @app.route('/list')
+# def list():
+#     data = PostPic.query.order_by(PostPic.id)
+#     return render_template('list.html', data=data )
