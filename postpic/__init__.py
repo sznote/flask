@@ -13,6 +13,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOADED_IMAGES_DEST'] =   os.path.join(os.path.abspath(BASE_DIR), "static/images")
 app.config['UPLOADED_IMAGES_URL'] = '/static/images/'
 app.config['DEBUG'] = True
+app.config['SERVER_URL'] = '127.0.0.1:5000'
 
 
 

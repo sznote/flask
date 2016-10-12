@@ -1,5 +1,47 @@
-
+<!DOCTYPE html>
 <html>
+<head>
+{% include 'script.html' %}
+</head>
+
+<body>
+
+<br>
+<br>
+<br>
+<div class="container">
+
+<div class="row">
+    <div class="col-sm-6 col-md-6 col-md-offset-3"> 
+	     <div class="thumbnail"> 
+	    	{% if postpic.image %}
+	    			<br>
+		      		<img src="{{ postpic.imgsrc }}" width="260" height="320px" >
+				{%else %}
+					"Not Found!!"
+				{% endif %}
+		      <!-- <img src="..." alt="..."> -->
+		       <div class="caption"> 
+		       <br>
+		       <br>
+		       		<!-- <div  class="bg bg-danger" align="center" style="height: 20px;"> {{  pic_url  }} </div>  -->
+		            <div class="alert alert-info alert-xs" role="alert" align="center"><h5> {{  pic_url  }} </h5> </div> 
+		        <!-- <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p> -->
+		      </div>
+		</div> 
+    </div>
+</div> 
+<!-- <img src="{{ postpic.imgsrc }}"  height="320px" > -->
+<!--
+<p class="bg-primary">  {{  pic_url  }} </p>
+<div class="alert alert-info alert-xs" role="alert" align="center" ><h5> {{  pic_url  }} </h5> </div>
+-->
+<!-- </div> -->
+
+<!-- <img src="{{ postpic.imgsrc }}"  height="320px" > -->
+<!--
+
+
 <center>
 {% if postpic.image %}
 <br>
@@ -10,5 +52,15 @@
 {% endif %}
 
 <center>
+<p> Pic Url :
+<ul> 
+{{  pic_url  }}
+</ul>
+ </p>
+
 <p> <a href="{{ url_for('index')}}"> Upload image  </a> <p>
+
+</div>
+-->
+</body>
 </html

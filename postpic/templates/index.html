@@ -39,35 +39,70 @@ $custom-file-text: (
 
 </head>
 <body>
-	<br>
-	<br>
-	<br>
-	{% from "_formhelpers.html" import render_field %}
+
+
+<div class="Header">
+  &nbsp;
+  &nbsp;
+  <hr/>
+<div>
+<div class="container">
+
+
+	{% from "_uploadhelpers.html" import render_field %}
 	<form method="post" action="{{ url_for('index') }}" enctype="multipart/form-data">
 		{{ form.csrf_token  }}
 	  	<div>
-
+    <!--
 	  	<label class="custom-file">
 	  	{{ render_field(form.image, class="custom-file-input") }}
   		 <input type="file" id="file"class="form-control"> 
   		<span class="custom-file-control"></span>
 		</label>
-	    	
+    -->
+	  <!--  	
 	    <span class="btn btn-default btn-file">
-    Browse <input type="file" class="form-control">
-</span>
+        Browse <input type="file">
+      </span>
+    -->
+    <!--
+     <span class="btn btn-default btn-file">
+        Browse <input type="file">
+      </span>
 
+		<label class="btn btn-primary" for="my-file-selector">
 
-		<div>  
-	  	<br>
-	  	<p><input type="submit" value="Add">
-	  	 -- <input type="reset" value="Clear"></p>
-	</form>
+      <span class="btn btn-default btn-file">
+      Browse <input type="file">
+      </span> 
+	  	<p>
+        <input type="submit" value="Upload" class="btn btn-default">
+	  	  <input type="reset" value="Remove">
+      </p>
+    </label>
+    -->
+	
+<p>
+  <label class="btn btn-primary" for="image">
+  <!-- {{ render_field(form.image, class="custom-file-input") }} -->
+    <!--{{ render_field(form.image) }} -->
+    {{ form.image }}
+   <!--  <input id="my-file-selector" type="file"  > -->
+  
+  </label>
 
-
+  <input type="submit" value="Upload" class="btn btn-default"> 
+  <input type="reset" value="Remove" class="btn btn-default">
+</p>
+<!--
 	<label class="btn btn-primary" for="my-file-selector">
     <input id="my-file-selector" type="file" style="display:none;" class="form-control" >
     Button Text Here
-</label>
+  </label>
+-->
+  </form>
+
+
+</div>
 </body>
 </html>

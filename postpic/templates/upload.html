@@ -3,33 +3,53 @@
 <title> python </title>
 {% include 'script.html' %}
 </head>
-<body>
+<body style="height: 420px;">
+
+<div class="page-header">
+  <!-- <h1>Rackgreen upload pic <small>by rackgreen team</small></h1>-->
+</div>
 
 
+<div class="container">
 <script src='{{ url_for("static", filename="js/fileinput.js") }}'></script>
 <script src='{{ url_for("static", filename="themes/fa/theme.js") }}'></script>
  
 
 	<form method="post" action="{{ url_for('index') }}" enctype="multipart/form-data">
-		{{ form.csrf_token }}	
+			{{ form.csrf_token }}	
 
-	<label class="control-label">Select File</label>
-	<input id="image" name="image" type="file" multiple class="file-loading"/>
+		<div class="row">
 
-	<script>
-		$("#image").fileinput({
-		    theme: "fa",
-		    uploadUrl: "{{url_for('getpic') }}"
-		});
+			<label class="control-label"></label>
+			<!-- <input id="image" name="image" type="file" multiple class="file-loading"/> -->
+			<input id="image" name="image" type="file" multiple class="file-loading"/>
+
+			<script>
+				$("#image").fileinput({
+				    theme: "fa",
+				    uploadUrl: "{{url_for('getpic') }}",
+				     uploadAsync: true,
+				     maxFileCount: 1,
+				});	
+			</script>
+
+		</div>
+
+	</form>
 
 
-		
-	</script>
+</div>
+<!-- footer -->
 
-</form>
+<div class="footer">
+	<div class="well well-lg">
+		http://plugins.krajee.com/file-input-ajax-demo/1
+		https://github.com/kartik-v/bootstrap-fileinput
+		http://stackoverflow.com/questions/18334717/how-to-upload-a-file-using-an-ajax-call-in-flask
+
+	</div>
+</div>
+
 
 </body>
 </html>
-http://plugins.krajee.com/file-input-ajax-demo/1
-https://github.com/kartik-v/bootstrap-fileinput
-http://stackoverflow.com/questions/18334717/how-to-upload-a-file-using-an-ajax-call-in-flask

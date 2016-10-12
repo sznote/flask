@@ -40,8 +40,9 @@ def getpic():
                 db.session.commit()
                 #return redirect(url_for('show', path_id=postpic.link))
                 return "127.0.0.1:5000/showpic/%s" % postpic.link
+    return "The image wasn't uploaded"
 
-    return render_template('index.html', form=form, error=error)
+    #return render_template('index.html', form=form, error=error)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -79,8 +80,9 @@ def index():
 def show(path_id):
 
     postpic =  PostPic.query.filter_by(link=path_id).first_or_404()
+    pic_url =  app.config['SERVER_URL'] + "/showpic/%s" % postpic.link
     #print random_generator()
-    return render_template('picshow.html', postpic=postpic)
+    return render_template('picshow.html', postpic=postpic, pic_url=pic_url )
 
 @app.route('/list')
 def list():
