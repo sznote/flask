@@ -14,7 +14,7 @@ def upload():
 @app.route('/get/', methods=['POST'])
 def getpic():
     error = None
-    form =  ImageForm(request.form)
+    #form =  ImageForm(request.form)
     if  request.method == "POST":
         #if form.validate_on_submit():
         image = request.files.get('image')
