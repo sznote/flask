@@ -1,7 +1,7 @@
 from __init__ import app, db, upload_images
 from flask import url_for, render_template, request, flash, redirect, jsonify
 from models import PostPic
-from forms import ImageForm
+from forms import ImageForm, ListForm
 from random_str import random_generator
 
 list_per_page = 10
@@ -93,23 +93,74 @@ def show(path_id):
     #print random_generator()
     return render_template('picshow.html', postpic=postpic, pic_url=pic_url )
 
-@app.route('/list')
+
+class  Dic2obj(object):
+    def __init__(self, **entries): 
+        self.__dict__.update(entries)
+
+
+@app.route('/list', methods=["GET", "POST"])
 #@app.route('/list/page')
 def list():
     # new_page = None
     # new_page  = request.args.get('page')
+    #form = ListFrom(request.form)
+    # if request.method == "POST":
+    #     print  form.username.data 
+    
+    post = {
+            "username" : "sahai",
+            'email': "sahai@yahoo.com",
+            'country_code': 64210,
+        }
+
+    objpost =  Dic2obj(**post)
+    form = ListForm(request.form, obj=objpost )
+   
+   # boxs  = request.form
+    if request.method == "POST":
+        images_id  = request.form.getlist("imageid")
+    #print image_id
+        for  image_id in images_id:
+            print image_id
+            print PostPic.query.filter_by(id=image_id).first().link
+        
+    #print "username is %s" % request.args.get('username')
+
     page =  request.args.get('page', type=int, default=1)
-    y =  request.args
-    for x in y:
-        print x
-        print y[x]
+
+    #print form.username.data
+    # y =  request.args
+    # for x in y:
+    #     print x
+    #     print y[x]
     # if new_page is not None:
     #     page = int(new_page)
     #print new_page
     #data = PostPic.query.order_by(PostPic.id).limit(50).from_self().paginate(page, list_per_page)
     data = PostPic.query.order_by(PostPic.id).paginate(page, list_per_page)
-    return render_template('list.html', data=data)
+    return render_template('list.html', data=data, form=form)
 
+#---------
+#http://www.blog.pythonlibrary.org/2014/02/14/python-101-how-to-change-a-dict-into-a-class/
+# class Dict2Obj(object):
+#     """
+#     Turns a dictionary into a class
+#     """
+ 
+#     #----------------------------------------------------------------------
+#     def __init__(self, dictionary):
+#         """Constructor"""
+#         for key in dictionary:
+#             setattr(self, key, dictionary[key])
+ 
+ 
+# #----------------------------------------------------------------------
+# if __name__ == "__main__":
+#     ball_dict = {"color":"blue",
+#                  "size":"8 inches",
+#                  "material":"rubber"}
+#     ball = Dict2Obj(ball_dict)
 
 
 #------------------------

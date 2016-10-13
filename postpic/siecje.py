@@ -1,0 +1,36 @@
+from flask import Flask, render_template
+from flask_wtf import Form
+from wtforms import SelectMultipleField, widgets
+
+SECRET_KEY = 'development'
+
+app = Flask(__name__)
+app.config.from_object(__name__)
+
+class MultiCheckboxField(SelectMultipleField):
+    widget = widgets.ListWidget(prefix_label=False)
+    option_widget = widgets.CheckboxInput()
+
+
+class SimpleForm(Form):
+    string_of_files = ['one\r\ntwo\r\nthree\r\n']
+    list_of_files = string_of_files[0].split()
+    # create a list of value/description tuples
+    files = [(x, x) for x in list_of_files]
+    example = MultiCheckboxField('Label', choices=files)
+
+@app.route('/',methods=['post','get'])
+def hello_world():
+    form = SimpleForm()
+    if form.validate_on_submit():
+        print form.example.data
+    else:
+        print form.errors
+    return render_template('example.html',form=form)
+
+if __name__ == '__main__':
+    app.run(debug=True)
+# http://stackoverflow.com/questions/18188428/dynamic-forms-formsets-in-flask-wtforms
+#https://gist.github.com/doobeh/4668212
+* #http://stackoverflow.com/questions/18188428/dynamic-forms-formsets-in-flask-wtforms
+

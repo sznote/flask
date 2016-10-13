@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import StringField, TextField, PasswordField
+from wtforms import StringField, TextField, PasswordField, IntegerField, SelectField, SelectMultipleField
 from wtforms.validators import DataRequired, Length, Email
 from flask_wtf.file import  FileField, FileAllowed
 from __init__ import upload_images
@@ -13,5 +13,14 @@ class  ImageForm(Form):
  #                'Email',
  #                validators=[DataRequired(),Email(message=None), Length(min=6, max=40)]
  #        )
+
+
+class ListForm(Form):
+
+	username = StringField ("username", validators=[DataRequired()])
+	email = StringField("email", validators=[Email()])
+	country_code = IntegerField('country Code', validators=[DataRequired()])
+	language = SelectField(u'Programming Language', choices=[('cpp', 'C++'), ('py', 'Python'), ('text', 'Plain Text')])
+	available = SelectMultipleField('Available', choices=[('1','1'),('2','2')])
 
 
