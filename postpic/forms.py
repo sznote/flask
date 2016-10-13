@@ -14,6 +14,9 @@ class  ImageForm(Form):
  #                validators=[DataRequired(),Email(message=None), Length(min=6, max=40)]
  #        )
 
+class LoginForm(Form):
+	username = StringField ("Username", validators=[DataRequired()])
+	password = PasswordField('Password', validators=[DataRequired()])
 
 class ListForm(Form):
 

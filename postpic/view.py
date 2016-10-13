@@ -1,8 +1,9 @@
 from __init__ import app, db, upload_images
-from flask import url_for, render_template, request, flash, redirect, jsonify
+from flask import url_for, render_template, request, flash, redirect, jsonify, session
 from models import PostPic
-from forms import ImageForm, ListForm
+from forms import ImageForm, ListForm, LoginForm
 from random_str import random_generator
+import os
 
 list_per_page = 10
 
@@ -94,6 +95,18 @@ def show(path_id):
     return render_template('picshow.html', postpic=postpic, pic_url=pic_url )
 
 
+@app.route('/admin/login', methods=["GET", "POST"])
+def login():
+    error = None
+    form = LoginForm(request.form)
+    if form.validate_on_submit():
+        usr = form.username.data 
+        mypas =  form.password.data
+        if usr == 'admin' and mypas == 'admin':
+            return  redirect ( url_for('list') ) 
+    return  render_template('login.html', form=form, error=error)
+
+
 class  Dic2obj(object):
     def __init__(self, **entries): 
         self.__dict__.update(entries)
@@ -120,11 +133,28 @@ def list():
    # boxs  = request.form
     if request.method == "POST":
         images_id  = request.form.getlist("imageid")
+        
     #print image_id
         for  image_id in images_id:
-            print image_id
-            print PostPic.query.filter_by(id=image_id).first().link
-        
+            postpic = PostPic.query.filter_by(id=image_id).first()
+            #imagefile = "%s/%s" %( app.config['UPLOADED_IMAGES_DEST'], PostPic.query.filter_by(id=image_id).first().image)
+            if postpic.image is not None:
+                imagefile = os.path.join(app.config['UPLOADED_IMAGES_DEST'], 
+                    postpic.image)
+            
+                #print PostPic.query.filter_by(id=image_id).first().image
+                #print imagefile
+                if os.path.isfile(imagefile):
+                    print imagefile +  " :OK"
+                    #Delete file 
+                    os.remove(imagefile)
+                else:
+                    print imagefile + " :Not found!"
+            #delete database
+            #or Postfic.query.filter_by(id=image_id).delete()
+            db.session.delete(postpic)
+            db.session.commit()
+    #redirect       
     #print "username is %s" % request.args.get('username')
 
     page =  request.args.get('page', type=int, default=1)
@@ -138,8 +168,28 @@ def list():
     #     page = int(new_page)
     #print new_page
     #data = PostPic.query.order_by(PostPic.id).limit(50).from_self().paginate(page, list_per_page)
-    data = PostPic.query.order_by(PostPic.id).paginate(page, list_per_page)
+    
+    data = PostPic.query.order_by(PostPic.id).paginate(page, list_per_page, error_out=False)
+    #print data.pages
+    #print page
+    if   int(data.pages) <  int(page):
+
+       #print "wtf"
+        return redirect ( "%s?page=%s" %( url_for('list'), data.pages ) )
+    
+        #page = data.pages
+        #data = PostPic.query.order_by(PostPic.id).paginate(page, list_per_page, error_out=False)
+        #print "wtf"
+
     return render_template('list.html', data=data, form=form)
+
+
+##--- delete row
+#>>> PostPic.query.filter_by(id=1).delete()
+#1
+#>>> PostPic.commit()
+
+
 
 #---------
 #http://www.blog.pythonlibrary.org/2014/02/14/python-101-how-to-change-a-dict-into-a-class/
