@@ -1,14 +1,43 @@
-{% for list in data %}
+<html>
+<head>
+<title> python </title>
+{% include 'script.html' %}
+</head>
+<body>
+
+{% from "_iter_pageshelp.html" import render_pagination %}
+
+{% for lists in data.items %}
 	<p>
-	{{ list.id }} :: 
-		{% if list.link %}
-			<a href="{{ url_for('show', path_id=list.link ) }} "> {{  list.image }} </a>
+	{{ lists.id }} :: 
+		{% if lists.link %}
+			<a href="{{ url_for('show', path_id=lists.link ) }} "> {{  lists.image }} </a>
 		{% else %}
-			<a href="{{ url_for('show', path_id="aabbccdd" ) }} "> {{  list.image }} </a>
+			<a href="{{ url_for('show', path_id="aabbccdd" ) }} "> {{  lists.image }} </a>
 		{% endif %}
+			{{  lists.publish_date.strftime('%Y-%m-%d') }}
 
-		
-		
+				
 
-	</p>
+	</p>	
 {% endfor %}
+{% if data.has_prev: %}
+  <a href='{{ url_for("list") }}?page={{ data.prev_num }}'>  << </a>
+{%else %}
+  << 
+{% endif %}
+
+{{ render_pagination(data, "list") }}
+
+
+{% if data.has_next: %}
+  <a href="{{ url_for('list') }}?page={{ data.next_num }}">  >> </a>
+{%else %}
+  >> 
+{% endif %}
+
+
+
+
+</body>
+<html>

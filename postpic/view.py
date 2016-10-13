@@ -4,6 +4,8 @@ from models import PostPic
 from forms import ImageForm
 from random_str import random_generator
 
+list_per_page = 10
+
 @app.route('/json/')
 def tstjson():
     return jsonify(name='sahai',id=10,email='iam.saza@gmail.com', keyerr=[0,1,3,4])
@@ -91,7 +93,47 @@ def show(path_id):
     #print random_generator()
     return render_template('picshow.html', postpic=postpic, pic_url=pic_url )
 
-# @app.route('/list')
-# def list():
-#     data = PostPic.query.order_by(PostPic.id)
-#     return render_template('list.html', data=data )
+@app.route('/list')
+#@app.route('/list/page')
+def list():
+    # new_page = None
+    # new_page  = request.args.get('page')
+    page =  request.args.get('page', type=int, default=1)
+    y =  request.args
+    for x in y:
+        print x
+        print y[x]
+    # if new_page is not None:
+    #     page = int(new_page)
+    #print new_page
+    #data = PostPic.query.order_by(PostPic.id).limit(50).from_self().paginate(page, list_per_page)
+    data = PostPic.query.order_by(PostPic.id).paginate(page, list_per_page)
+    return render_template('list.html', data=data)
+
+
+
+#------------------------
+    # 5. Databases
+    #     posts = [dict(title=row[0],description=row[1]) for row in cur.fetchall()]
+
+    #     x =  (('a1','a2'),('b1','b2'),('c1','c2'))
+    #     posts=[dict(t=row[0],d=row[1])  for  row in x ]
+    #     [{'d': 'a2', 't': 'a1'}, {'d': 'b2', 't': 'b1'}, {'d': 'c2', 't': 'c1'}]
+
+    #     for z in posts:
+    #         print z['d']
+
+    #     #
+    #     x={ 'a': 'hello', 'b': 'bello', 'c': 'cello' }
+    #     >>> x.keys()
+    #     ['a', 'c', 'b']
+
+    # >>> x.values()
+    #     ['hello', 'cello', 'bello']
+
+    #     >>> for v in x:
+    #     ...     print "%s:%s" %( v, x[v])
+    #     ...
+    #     a:hello
+    #     c:cello
+    #     b:bello
