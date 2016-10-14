@@ -1,11 +1,22 @@
 from __init__ import app, db, upload_images
-from flask import url_for, render_template, request, flash, redirect, jsonify, session
+from flask import url_for, render_template, request, flash, redirect, jsonify, session, abort
 from models import PostPic
 from forms import ImageForm, ListForm, LoginForm
 from random_str import random_generator
+from functools import wraps
 import os
 
 list_per_page = 10
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'logged_in' not in session:  #session.get('logged_in') is None
+            return abort(404)
+        return f(*args, **kwargs)
+            #return redirect(url_for('login'))
+    return decorated_function
+
 
 @app.route('/json/')
 def tstjson():
@@ -94,6 +105,13 @@ def show(path_id):
     #print random_generator()
     return render_template('picshow.html', postpic=postpic, pic_url=pic_url )
 
+@app.route('/admin/logout')
+@login_required
+def logout():
+    session.pop('logged_in', None)
+    #session.clear()
+    return redirect(url_for('login'))
+
 
 @app.route('/admin/login', methods=["GET", "POST"])
 def login():
@@ -103,6 +121,7 @@ def login():
         usr = form.username.data 
         mypas =  form.password.data
         if usr == 'admin' and mypas == 'admin':
+            session['logged_in'] = True
             return  redirect ( url_for('list') ) 
     return  render_template('login.html', form=form, error=error)
 
@@ -113,6 +132,7 @@ class  Dic2obj(object):
 
 
 @app.route('/list', methods=["GET", "POST"])
+#@login_required
 #@app.route('/list/page')
 def list():
     # new_page = None

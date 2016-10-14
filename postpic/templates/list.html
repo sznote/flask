@@ -1,59 +1,49 @@
-<html>
-<head>
-<title> python </title>
-{% include 'script.html' %}
-</head>
-<body>
 
+{% extends  "base.html" %}
 
+{% block content %}
 
-{% from "_iter_pageshelp.html" import render_pagination %}
+	{% from "_iter_pageshelp.html" import render_pagination %}
 
-<form action="" method="POST">
+	<form action="" method="POST">
 
-{{ form.csrf_token  }}
+		{{ form.csrf_token  }}
 
+		{% for lists in data.items %}
+			<p>
+			<input type="checkbox" name="imageid" value="{{ lists.id }}" >
 
+			<!-- {{ lists.id }} ::  -->
+				{% if lists.link %}
+					<a href="{{ url_for('show', path_id=lists.link ) }} "> {{  lists.image }} </a>
+				{% else %}
+					<a href="{{ url_for('show', path_id="aabbccdd" ) }} "> {{  lists.image }} </a>
+				{% endif %}
+					{{  lists.publish_date.strftime('%Y-%m-%d') }}
 
+			</p>	
+		{% endfor %}
 
+		<p> <input type="submit" value="Delete"> </p>
 
-{% for lists in data.items %}
-	<p>
-	<input type="checkbox" name="imageid" value="{{ lists.id }}" >
-
-	<!-- {{ lists.id }} ::  -->
-		{% if lists.link %}
-			<a href="{{ url_for('show', path_id=lists.link ) }} "> {{  lists.image }} </a>
-		{% else %}
-			<a href="{{ url_for('show', path_id="aabbccdd" ) }} "> {{  lists.image }} </a>
+		{% if data.has_prev: %}
+		  <a href='{{ url_for("list") }}?page={{ data.prev_num }}'>  << </a>
+		{%else %}
+		  << 
 		{% endif %}
-			{{  lists.publish_date.strftime('%Y-%m-%d') }}
 
-				
-
-	</p>	
-{% endfor %}
+		{{ render_pagination(data, "list") }}
 
 
-<p> <input type="submit" value="Delete"> </p>
+		{% if data.has_next: %}
+		  <a href="{{ url_for('list') }}?page={{ data.next_num }}">  >> </a>
+		{%else %}
+		  >> 
+		{% endif %}
 
-{% if data.has_prev: %}
-  <a href='{{ url_for("list") }}?page={{ data.prev_num }}'>  << </a>
-{%else %}
-  << 
-{% endif %}
-
-{{ render_pagination(data, "list") }}
-
-
-{% if data.has_next: %}
-  <a href="{{ url_for('list') }}?page={{ data.next_num }}">  >> </a>
-{%else %}
-  >> 
-{% endif %}
-
-{{ form.username.label }}  :: {{ form.username }}
-
+		{{ form.username.label }}  :: {{ form.username }}
+	</form>
+{% endblock %}
 
 <!--  TEST -->
 <!-- 
@@ -66,10 +56,3 @@
 
 
 
-
-</form>
-
-
-
-</body>
-<html>
