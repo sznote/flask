@@ -6,7 +6,7 @@ from random_str import random_generator
 from functools import wraps
 import os
 
-list_per_page = 10
+list_per_page = 9
 
 def login_required(f):
     @wraps(f)

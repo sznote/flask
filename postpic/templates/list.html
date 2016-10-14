@@ -16,6 +16,7 @@
 			<!-- {{ lists.id }} ::  -->
 				{% if lists.link %}
 					<a href="{{ url_for('show', path_id=lists.link ) }} "> {{  lists.image }} </a>
+					<img src='{{ lists.imgsrc }}' height="30px" />
 				{% else %}
 					<a href="{{ url_for('show', path_id="aabbccdd" ) }} "> {{  lists.image }} </a>
 				{% endif %}
@@ -26,23 +27,14 @@
 
 		<p> <input type="submit" value="Delete"> </p>
 
-		{% if data.has_prev: %}
-		  <a href='{{ url_for("list") }}?page={{ data.prev_num }}'>  << </a>
-		{%else %}
-		  << 
-		{% endif %}
+</form>
 
-		{{ render_pagination(data, "list") }}
+<!-- ---------- pagination --------- -->
+	{{ render_pagination(data, "list") }}
+<!--    #paination ----------- -->
+{{ form.username.label }}  :: {{ form.username }}
+	
 
-
-		{% if data.has_next: %}
-		  <a href="{{ url_for('list') }}?page={{ data.next_num }}">  >> </a>
-		{%else %}
-		  >> 
-		{% endif %}
-
-		{{ form.username.label }}  :: {{ form.username }}
-	</form>
 {% endblock %}
 
 <!--  TEST -->
