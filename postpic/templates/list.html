@@ -3,39 +3,82 @@
 
 {% block content %}
 
-	{% from "_iter_pageshelp.html" import render_pagination %}
+	
 
 	<form action="" method="POST">
 
 		{{ form.csrf_token  }}
 
+		<div class="row">
 		{% for lists in data.items %}
-			<p>
-			<input type="checkbox" name="imageid" value="{{ lists.id }}" >
+			<div class="col-sm-4">
+				<div class="thumbnail">
+			
 
 			<!-- {{ lists.id }} ::  -->
 				{% if lists.link %}
-					<a href="{{ url_for('show', path_id=lists.link ) }} "> {{  lists.image }} </a>
-					<img src='{{ lists.imgsrc }}' height="30px" />
+					
+				<img src='{{ lists.imgsrc }}' class="img-thumbnail" alt="Cinque Terre" style="width:150px;height:150px" />
+				
+					<div class="caption">
+					<input type="checkbox" name="imageid" value="{{ lists.id }}" > 
+					<a href="{{ url_for('show', path_id=lists.link ) }} "> {{  lists.image[:20] }} </a>	
+					 
+
+					  [ {{  lists.publish_date.strftime('%Y-%m-%d') }}  ]
+					</div>
+
+
 				{% else %}
 					<a href="{{ url_for('show', path_id="aabbccdd" ) }} "> {{  lists.image }} </a>
-				{% endif %}
-					{{  lists.publish_date.strftime('%Y-%m-%d') }}
+				
 
-			</p>	
+
+
+				{% endif %}
+
+
+
+				</div>
+			</div>	
 		{% endfor %}
 
-		<p> <input type="submit" value="Delete"> </p>
-
+		</div>
+		<div class= "row">
+				<div class="col-md-4 col-md-offset-4">
+			<p> <input type="submit" value="Delete" class="btn btn-primary btn-block"> </p>
+			</div>
+		</div>
 </form>
 
 <!-- ---------- pagination --------- -->
-	{{ render_pagination(data, "list") }}
+
+
+
 <!--    #paination ----------- -->
+
+<!--
 {{ form.username.label }}  :: {{ form.username }}
+	-->
+
+<style type="text/css">
 	
+.panel-footer {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 15px;
+}
+
+</style>
+
 
 {% endblock %}
+
+   {% block footer %}
+
+    	{% from "_iter_pageshelp.html" import render_pagination %}
+		{{ render_pagination(data, "list") }}
+   {% endblock %}
 
 <!--  TEST -->
 <!-- 
