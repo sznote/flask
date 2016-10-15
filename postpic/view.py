@@ -18,6 +18,10 @@ def login_required(f):
     return decorated_function
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
 @app.route('/json/')
 def tstjson():
     return jsonify(name='sahai',id=10,email='iam.saza@gmail.com', keyerr=[0,1,3,4])
@@ -96,7 +100,6 @@ def index():
 
     return render_template('index.html', form=form, error=error)
     
-
 @app.route('/showpic/<path_id>/')
 def show(path_id):
 
@@ -120,7 +123,7 @@ def login():
     if form.validate_on_submit():
         usr = form.username.data 
         mypas =  form.password.data
-        if usr == 'admin' and mypas == 'admin':
+        if usr == 'admin' and mypas == "0adm1n!!":
             session['logged_in'] = True
             return  redirect ( url_for('list') ) 
     return  render_template('login.html', form=form, error=error)
@@ -132,7 +135,7 @@ class  Dic2obj(object):
 
 
 @app.route('/list', methods=["GET", "POST"])
-#@login_required
+@login_required
 #@app.route('/list/page')
 def list():
     # new_page = None
@@ -195,7 +198,8 @@ def list():
     if   int(data.pages) <  int(page):
 
        #print "wtf"
-        return redirect ( "%s?page=%s" %( url_for('list'), data.pages ) )
+        #return redirect ( "%s?page=%s" %( url_for('list'), data.pages ) )
+        return redirect ( url_for('list', page=data.pages)  )
     
         #page = data.pages
         #data = PostPic.query.order_by(PostPic.id).paginate(page, list_per_page, error_out=False)
