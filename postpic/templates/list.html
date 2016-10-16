@@ -12,6 +12,10 @@
 
 		{{ form.csrf_token  }}
 
+	
+	
+		<input type="text" hidden name="search" id="search" value="{{ search }}"> 
+
 		<div class="row">
 		{% for lists in data.items %}
 			<div class="col-sm-4">
@@ -21,7 +25,7 @@
 			<!-- {{ lists.id }} ::  -->
 				{% if lists.link %}
 					
-				<img src='{{ lists.imgsrc }}' class="img-thumbnail" alt="Cinque Terre" style="width:150px;height:150px" />
+				<img src='{{ lists.imgsrc }}' class="img-thumbnail" alt="Cinque Terre" style="width:260px;height:200px" />
 				
 					<div class="caption">
 					<input type="checkbox" name="imageid" value="{{ lists.id }}" > 
@@ -80,7 +84,7 @@
    {% block footer %}
 
     	{% from "_iter_pageshelp.html" import render_pagination %}
-		{{ render_pagination(data, "list") }}
+		{{ render_pagination(data, "list", search) }}
    {% endblock %}
 
 <!--  TEST -->

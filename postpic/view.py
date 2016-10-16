@@ -143,7 +143,14 @@ def list():
     #form = ListFrom(request.form)
     # if request.method == "POST":
     #     print  form.username.data 
-    
+    # if request.method == "POST":
+    #     for x  in request.form:
+    #         print x
+            #print request.form[x]
+    #     if "submit_search" in request.form:
+    #         print "i found it"
+
+
     post = {
             "username" : "sahai",
             'email': "sahai@yahoo.com",
@@ -153,6 +160,10 @@ def list():
     objpost =  Dic2obj(**post)
     form = ListForm(request.form, obj=objpost )
    
+
+    page =  request.args.get('page', type=int, default=1)
+    search = request.args.get('search',default=None)
+
    # boxs  = request.form
     if request.method == "POST":
         images_id  = request.form.getlist("imageid")
@@ -168,7 +179,7 @@ def list():
                 #print PostPic.query.filter_by(id=image_id).first().image
                 #print imagefile
                 if os.path.isfile(imagefile):
-                    print imagefile +  " :OK"
+                    #print imagefile +  " :OK"
                     #Delete file 
                     os.remove(imagefile)
                 else:
@@ -180,8 +191,6 @@ def list():
     #redirect       
     #print "username is %s" % request.args.get('username')
 
-    page =  request.args.get('page', type=int, default=1)
-
     #print form.username.data
     # y =  request.args
     # for x in y:
@@ -192,20 +201,49 @@ def list():
     #print new_page
     #data = PostPic.query.order_by(PostPic.id).limit(50).from_self().paginate(page, list_per_page)
     
-    data = PostPic.query.order_by(PostPic.id).paginate(page, list_per_page, error_out=False)
+    #import pdb; pdb.set_trace()
+    #if "submit_search" in request.form and  request.form['search'] is not None:
+    if request.method =="POST" and request.form['search'] is not None:
+        if "submit_search" in request.form:
+            page =1
+
+        search = request.form['search']
+        data = PostPic.query.filter(PostPic.image.like( '%' + search + '%')).order_by(PostPic.id).paginate(page, list_per_page, error_out=False)
+        
+        #return render_template('list.html', data=data, form=form, search=search)
+    
+    elif request.method =="POST" and request.form['search'] is None:
+        data = PostPic.query.order_by(PostPic.id).paginate(page, list_per_page, error_out=False)
+        search = None
+        #return render_template('list.html', data=data, form=form,search=search)
+
+    
+    elif search is not None:
+         data = PostPic.query.filter(PostPic.image.like( '%' + search + '%')).order_by(PostPic.id).paginate(page, list_per_page, error_out=False)
+         #if   int(data.pages) <  int(page):
+         #    return redirect ( url_for('list', search=search, page=data.pages)  ) 
+         #return render_template('list.html', data=data, form=form, search=search)
+
+
+
+
+    else:
+        search=''
+        data = PostPic.query.order_by(PostPic.id).paginate(page, list_per_page, error_out=False)
     #print data.pages
     #print page
+    
     if   int(data.pages) <  int(page):
 
-       #print "wtf"
+        #print "wtf"
         #return redirect ( "%s?page=%s" %( url_for('list'), data.pages ) )
-        return redirect ( url_for('list', page=data.pages)  )
+        return redirect ( url_for('list', search=search, page=data.pages)  )
     
         #page = data.pages
         #data = PostPic.query.order_by(PostPic.id).paginate(page, list_per_page, error_out=False)
         #print "wtf"
 
-    return render_template('list.html', data=data, form=form)
+    return render_template('list.html', data=data, form=form, search=search)
 
 
 ##--- delete row
