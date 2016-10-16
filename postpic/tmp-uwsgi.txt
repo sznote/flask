@@ -1,0 +1,142 @@
+﻿https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uwsgi-and-nginx-on-centos-7
+http://vladikk.com/2013/09/12/serving-flask-with-nginx-on-ubuntu/
+http://code-maven.com/deploying-python-flask-using-uwsgi-on-ubuntu-14-04
+https://www.haykranen.nl/2014/11/15/running-a-python-flask-app-with-nginx-using-uwsgi/
+
+yum install uwsgi-plugin-python.x86_64 uwsgi
+
+App name (e.g. if your Flask app says this: myapp = Flask(__name__), your app name is myapp)
+
+#.  Example  app
+
+
+
+    
+
+
+
+
+pip install virtualenv
+
+mkdir /var/www/postpic
+cd  /var/www/postpic
+
+virtualenv  pyenv
+source pyenv/bin/activate
+pip install uwsgi flask
+
+
+# Test uWSGI Serving
+
+uwsgi  --http-socket :9000  --uid www-data --gid www-data  --plugin python  --wsgi-file wsgi.py  --callable app
+
+#{
+uwsgi  --http-socket :9000 --plugin python --wsgi-file  wsgi.py 
+--uid www-data --gid www-data 
+ --process 10 --enable-threads
+ processes = 2 * cpucores
+  #}
+
+ # /var/www/postpic/wsgi.py
+
+    from postpic.myapp import app
+    if __name__ == "__main__":
+        app.run()
+#-----
+
+# /var/www/postpic/postpic/myapp.py
+    from flask import Flask
+    app = Flask(__name__)
+
+    @app.route("/")
+    def hello():
+        return "<h1 style='color:blue'>Hello There!</h1>"
+
+#----        
+
+
+#
+
+ 
+ 
+## nginx-config
+/etc/nginx/sites-available
+server {
+
+    listen      80;
+    server_name _;
+    charset     utf-8;
+    client_max_body_size 75M;
+    access_log /var/log/nginx/postpic.log;
+    error_log  /var/log/nginx/postpic.error error;
+
+    location / { try_files $uri @apppostpic; }
+    location @apppostpic {
+        include uwsgi_params;
+        uwsgi_pass unix:/var/www/postpic/app_uwsgi.sock;
+    }
+
+}
+
+
+
+
+# Configuring uWSGI
+
+
+[uwsgi]
+
+[uwsgi]
+
+module = wsgi:app
+
+plugin = python
+
+# // or
+#wsgi-file = /home/dev/project/app.py
+#plugin    = python
+# ////
+
+master = true
+processes = 5
+
+#bind to the specified UNIX/TCP socket using default protoco
+socket = /var/www/postpic/app_uwsgi.sock
+
+#set PYTHONHOME/virtualenv
+pyhome = /var/www/postpic/pyenv
+
+chmod-socket = 666
+#vacuum = true
+
+die-on-term = true
+
+uid = www-data
+gid = www-data
+
+
+callable = app
+
+enable-threads
+
+#location of log files
+logto  = /var/log/uwsgi/%n.log
+
+stats 127.0.0.1:9191
+
+#--alarm-backlog
+
+#/proc/sys/net/core/somaxconn
+#listen 120
+
+
+
+
+### docker error ####.
+ref. http://stevelaesch.tech/2016/07/06/systemd-inside-docker-container-failed-to-get-d-bus-connection-operation-not-permitted/
+Failed to get D-Bus connection: Operation not permitted
+
+
+docker run --privileged -d --restart always -p 11122:22 -it \
+-e "container=docker"  -v /sys/fs/cgroup:/sys/fs/cgroup  \
+--name ansible docker.io/ansible/centos7-ansible  /usr/sbin/init
