@@ -185,3 +185,18 @@ Failed to get D-Bus connection: Operation not permitted
 docker run --privileged -d --restart always -p 11122:22 -it \
 -e "container=docker"  -v /sys/fs/cgroup:/sys/fs/cgroup  \
 --name ansible docker.io/ansible/centos7-ansible  /usr/sbin/init
+
+# commit container to image
+docker commit -m "postpic" -a "sahai" 733f01fdefbf postpic:v1  
+
+# create container
+docker run -it  -v /postpic/:/var/www/postpic/ --name  mypostpic -p 80:80  postpic:v1  /bin/bash
+
+# start container
+docker start  mypostpic
+
+# execute  container 
+docker exec -it  mypostpic /bin/bash
+
+# Description Level 2
+docker inspect mypostpic
